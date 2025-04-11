@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastre-se</title>
+</head>
+<body>
+    <div class="cadastro-container">
+        <div class="cadastro-left">
+            <h1>Cadastro</h1>
+            <p>Crie sua conta para acessar o sistema</p>
+        </div>
+        <div class="cadastro-right">
+            <h1>📝 Cadastro de Usuários</h1>
+            <p>Preencha os campos abaixo para se cadastrar:</p>
+
+            <form action="/cadastrar" method="post">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha" placeholder="Crie uma senha" minlength="6"  required>
+
+                <button type="submit" class="btn">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
