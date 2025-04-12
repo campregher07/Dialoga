@@ -8,7 +8,7 @@ app.use(express.static("public"));
 const connection = mysql.createConnection({
     host: 'localhost', //endereço do banco de dados
     user: 'root', //nome do usuario do banco
-    password: 'root', // senha do banco
+    password: 'Dani090707*', // senha do banco
     database: 'DialogaDatabase', // nome do banco
     port: 3306 // porta do banco
 });
@@ -32,8 +32,11 @@ app.get("/cadastre-se", function(req,res) {
     res.sendFile(__dirname + "/cadastro.html")
 });
 
+app.get("/recuperarSenha", function(req,res) {
+    res.sendFile(__dirname + "/recuperacao.html")
+});
 
-
+//FAZER DE ADMIN E DE PROFISSIONAIS 
 app.post("/login", function(req,res){
     const nome = req.body.nome;
     const email = req.body.email;
@@ -74,8 +77,30 @@ app.post("/cadastrar", function(req, res){
         }
     })
 
+});
+
+app.post("/recuperar", function(req, res){
+    const email = req.body.email
+    const senha = req.body.senha
+
+    const recuperar = "UPDATE usuarios SET senha = ? WHERE email = ?"
+
+    connection.query(recuperar, [senha, email], function(err,results){
+        if(err){
+            console.error("Erro ao recuperar senha ", err)
+            res.status(500).send("ERRO interno ao recuperar senha ");
+            return
+        }else{
+            console.log("Senha recuperada com sucesso!")
+            res.redirect("/")
+        }
+    })
 })
 
-app.listen(8083, function(){
-    console.log("Servidor rodando na url http://localhost:8083");
-});
+// app.listen(8083, function(){
+//     console.log("Servidor rodando na url http://localhost:8083");
+// }); 
+
+app.listen(3000, '0.0.0.0', () => {
+    console.log("Servidor rodando na url http://192.168.100.85:3000");
+}); 
