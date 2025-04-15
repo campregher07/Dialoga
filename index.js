@@ -2,8 +2,12 @@ const express = require("express");
 const app = express();
 const mysql = require("mysql2");
 const bodyParser = require("body-parser")
+const session = require("express-session");
 
 app.use(express.static("public"));
+
+app.set('view engine', 'ejs');
+
 
 const connection = mysql.createConnection({
     host: 'localhost', //endereço do banco de dados
@@ -12,6 +16,14 @@ const connection = mysql.createConnection({
     database: 'DialogaDatabase', // nome do banco
     port: 3306 // porta do banco
 });
+
+
+
+app.use(session({
+    secret: "dialogaSegredo123", // pode ser qualquer string segura
+    resave: false,
+    saveUninitialized: true,
+}));
 
 connection.connect(function(err){
     if(err){
@@ -36,7 +48,8 @@ app.get("/recuperarSenha", function(req,res) {
     res.sendFile(__dirname + "/recuperacao.html")
 });
 
-//FAZER DE ADMIN E DE PROFISSIONAIS 
+
+//FAZER DE ADMIN E DE PROFISSIONAIS
 app.post("/login", function(req,res){
     const nome = req.body.nome;
     const email = req.body.email;
@@ -46,10 +59,11 @@ app.post("/login", function(req,res){
 
     connection.query(selecionar, [nome, email, senha], function(err, results, fields){
         if(err){
-            console.error("Erro ao entrar na conta ", err) 
+            console.error("Erro ao entrar na conta ", err)
             res.status(500).send("ERRO interno ao verificar credenciais. ");
             return
         }if(results.length>0){
+            req.session.username = results[0].nome;
             res.redirect("/home" );
         }else{
             res.render('login', {erroeMessage: 'Credenciais inválidas. ', username:username});
@@ -68,7 +82,7 @@ app.post("/cadastrar", function(req, res){
 
     connection.query(cadastro, [nome, email, senha],function(err, result){
         if(err){
-            console.error("Erro ao inserir usuario ", err) 
+            console.error("Erro ao inserir usuario ", err)
             res.status(500).send("ERRO interno ao inserir usuario ");
             return
         }else{
@@ -95,12 +109,19 @@ app.post("/recuperar", function(req, res){
             res.redirect("/")
         }
     })
-})
+});
 
-// app.listen(8083, function(){
-//     console.log("Servidor rodando na url http://localhost:8083");
-// }); 
 
-app.listen(3000, '0.0.0.0', () => {
-    console.log("Servidor rodando na url http://192.168.100.85:3000");
-}); 
+app.get("/home", function(req, res) {
+    const username = req.session.username || "Usuário";
+    res.render("home", { username });
+});
+
+
+app.listen(8083, function(){
+    console.log("Servidor rodando na url http://localhost:8083");
+});
+
+// app.listen(3000, '0.0.0.0', () => {
+//     console.log("Servidor rodando na url http://172.20.10.2:3000");
+// });
