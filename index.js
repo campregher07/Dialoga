@@ -8,7 +8,6 @@ app.use(express.static("public"));
 
 app.set('view engine', 'ejs');
 
-
 const connection = mysql.createConnection({
     host: 'localhost', //endereço do banco de dados
     user: 'root', //nome do usuario do banco
@@ -48,6 +47,15 @@ app.get("/recuperarSenha", function(req,res) {
     res.sendFile(__dirname + "/recuperacao.html")
 });
 
+app.get("/home", function(req, res) {
+    const username = req.session.username || "Usuário";
+    res.render("home", { username });
+});
+
+app.get("/DiarioEmocional", (req, res) => {
+      const username = req.session.username || "Usuário";
+      res.render("Diario", { username });
+});
 
 //FAZER DE ADMIN E DE PROFISSIONAIS
 app.post("/login", function(req,res){
@@ -110,12 +118,7 @@ app.post("/recuperar", function(req, res){
         }
     })
 });
-
-
-app.get("/home", function(req, res) {
-    const username = req.session.username || "Usuário";
-    res.render("home", { username });
-});
+    
 
 
 app.listen(8083, function(){

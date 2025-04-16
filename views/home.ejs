@@ -1,59 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Home | Dialoga</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
-
 <body class="home">
-    <div class="container">
-        <!-- Saudações ao usuário -->
-        <h1>Olá, <span class="username"><%= username %></span>!</h1>
-        <p>Como está se sentindo hoje?</p>
-
-        <!-- Círculos de emoção -->
-        <div class="box">
-            <div class="circles">
-                <div class="row">
-                    <div class="feliz">
-                        <svg width="70" height="70" viewBox="0 0 70 70">
-                            <circle cx="35" cy="35" r="35" fill="#DED48A" />
-                        </svg>
-                    </div>
-                    <div class="contente">
-                        <svg width="70" height="70" viewBox="0 0 70 70">
-                            <circle cx="35" cy="35" r="35" fill="#B0DDB5" />
-                        </svg>
-                    </div>
-                    <div class="neutro">
-                        <svg width="70" height="70" viewBox="0 0 70 70">
-                            <circle cx="35" cy="35" r="35" fill="#DDDADA" />
-                        </svg>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="triste">
-                        <svg width="70" height="70" viewBox="0 0 70 70">
-                            <circle cx="35" cy="35" r="35" fill="#B1BDD9" />
-                        </svg>
-                    </div>
-                    <div class="ansioso">
-                        <svg width="70" height="70" viewBox="0 0 70 70">
-                            <circle cx="35" cy="35" r="35" fill="#C5B9DD" />
-                        </svg>
-                    </div>
-                    <div class="raivoso">
-                        <svg width="70" height="70" viewBox="0 0 70 70">
-                            <circle cx="35" cy="35" r="35" fill="#D9A1A1" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
+    <div class="home-container">
+        <div class="welcome">
+        <h1>Olá, <%= username %>!</h1>
+        <p>Como você está se sentindo hoje?</p>
         </div>
+
+        <div class="emotion-box">
+        <div class="emotion-row">
+            <div class="emotion" style="background-color: #DED48A;" title="Feliz"></div>
+            <div class="emotion" style="background-color: #B0DDB5;" title="Contente"></div>
+            <div class="emotion" style="background-color: #DDDADA;" title="Neutro"></div>
+        </div>
+        <div class="emotion-row">
+            <div class="emotion" style="background-color: #B1BDD9;" title="Triste"></div>
+            <div class="emotion" style="background-color: #C5B9DD;" title="Ansioso"></div>
+            <div class="emotion" style="background-color: #D9A1A1;" title="Raivoso"></div>
+        </div>
+        </div>
+        <br>
+
+        <button>Exercicios Diario</button>
+        <br><br>
+        <button>ChatBot com Lumi</button>
+        <br><br>
+        <a href="/DiarioEmocional">
+            <button>Dialoga com si mesmo</button>
+        </a>
+      
+
     </div>
-</body>
+  </body>
 
 </html>
