@@ -3,10 +3,19 @@ const app = express();
 const mysql = require("mysql2");
 const bodyParser = require("body-parser")
 const session = require("express-session");
+const { MongoClient } = require("mongodb");
+const mongoose = require('mongoose');
 
 app.use(express.static("public"));
-
 app.set('view engine', 'ejs');
+
+const uri = "mongodb://localhost:27017/DialogaDB";
+const client = new MongoClient(uri);
+
+mongoose.connect('mongodb://localhost:27017/DialogaDB')
+  .then(() => console.log('Conexão com MongoDB ok!'))
+  .catch((err) => console.error('Erro na conexão:', err));
+  
 
 const connection = mysql.createConnection({
     host: 'localhost', //endereço do banco de dados
@@ -53,9 +62,11 @@ app.get("/home", function(req, res) {
 });
 
 app.get("/DiarioEmocional", (req, res) => {
-      const username = req.session.username || "Usuário";
-      res.render("Diario", { username });
+    const username = req.session.username;
+    const userId = req.session.userId; // isso é importante!
+    res.render("Diario", { username, userId });
 });
+
 
 //FAZER DE ADMIN E DE PROFISSIONAIS
 app.post("/login", function(req,res){
@@ -70,11 +81,12 @@ app.post("/login", function(req,res){
             console.error("Erro ao entrar na conta ", err)
             res.status(500).send("ERRO interno ao verificar credenciais. ");
             return
-        }if(results.length>0){
+        }if(results.length > 0){
             req.session.username = results[0].nome;
-            res.redirect("/home" );
+            req.session.userId = results[0].id; 
+            res.redirect("/home");
         }else{
-            res.render('login', {erroeMessage: 'Credenciais inválidas. ', username:username});
+            res.render('login', {erroMessage: 'Credenciais inválidas. ', username: ""});
             return
         }
     })
@@ -119,6 +131,42 @@ app.post("/recuperar", function(req, res){
     })
 });
     
+// DIario de emoçoes 
+app.post("/registrarDiario", async function(req, res){
+    const userId = req.session.userId;
+    const texto = req.body.texto;
+    const intensidade = req.body.meuSlider;
+
+    if (!texto || intensidade === undefined || !userId) {
+        return res.status(400).json({ error: 'Campos obrigatórios ausentes.' });
+    }
+
+    const novoRegistro = {
+        userId: parseInt(userId),
+        texto,
+        intensidade: parseInt(intensidade),
+        date: new Date()
+    };
+
+    try {
+        await client.connect(); 
+        const database = client.db('DialogaDB');
+        const diario = database.collection('diario');
+
+        const resultado = await diario.insertOne(novoRegistro);
+        console.log("Registro feito com sucesso!")
+        res.redirect("/DiarioEmocional")
+
+    } catch (error) {
+        console.error('Erro ao inserir no diário:', error);
+        res.status(500).json({ error: 'Erro interno ao salvar o diário.' });
+
+    } finally {
+        await client.close(); 
+    }
+});
+
+
 
 
 app.listen(8083, function(){

@@ -9,40 +9,42 @@
 <body>
     <div class="container">
         <h1>Dialoga com si mesmo</h1>
+        
 
         <h2>Nova sessão</h2>
+        <form action="/registrarDiario" method="POST">
+            <label for="texto">Começe sua sessão por aqui:</label><br>
+            <textarea id="texto" name="texto" rows="6" cols="40" placeholder="Digite aqui..."></textarea>
 
-        <label for="mensagem">Começe sua sessão por aqui:</label><br>
-        <textarea id="mensagem" name="mensagem" rows="6" cols="40" placeholder="Digite aqui..."></textarea>
+            <p>Como você está se sentindo?</p>
 
-        <p>Como você está se sentindo?</p>
+            <div class="emotion-row">
+                <div class="emotion" style="background-color: #DED48A;" title="Feliz" data-emocao="Feliz"></div>
+                <div class="emotion" style="background-color: #B0DDB5;" title="Contente" data-emocao="Contente"></div>
+                <div class="emotion" style="background-color: #DDDADA;" title="Neutro" data-emocao="Neutro"></div>
+            </div><br>
+            <div class="emotion-row">
+                <div class="emotion" style="background-color: #B1BDD9;" title="Triste" data-emocao="Triste"></div>
+                <div class="emotion" style="background-color: #C5B9DD;" title="Ansioso" data-emocao="Ansioso"></div>
+                <div class="emotion" style="background-color: #D9A1A1;" title="Raivoso" data-emocao="Raivoso"></div>
+            </div>
 
-        <div class="emotion-row">
-            <div class="emotion" style="background-color: #DED48A;" title="Feliz" data-emocao="Feliz"></div>
-            <div class="emotion" style="background-color: #B0DDB5;" title="Contente" data-emocao="Contente"></div>
-            <div class="emotion" style="background-color: #DDDADA;" title="Neutro" data-emocao="Neutro"></div>
-        </div><br>
-        <div class="emotion-row">
-            <div class="emotion" style="background-color: #B1BDD9;" title="Triste" data-emocao="Triste"></div>
-            <div class="emotion" style="background-color: #C5B9DD;" title="Ansioso" data-emocao="Ansioso"></div>
-            <div class="emotion" style="background-color: #D9A1A1;" title="Raivoso" data-emocao="Raivoso"></div>
+            <p>Qual a intensidade da emoção?</p>
+            <div class="slider-container">
+                <label for="meuSlider">Nível de intensidade:</label>
+                <input type="range" min="1" max="10" value="1" class="slider" id="meuSlider" name="meuSlider">
+                <div class="slider-value" id="sliderValue">5</div>
+            </div>
+
+            <input type="submit" value="Registrar" id="registrarBtn">
         </div>
+    </form>
 
-        <p>Qual a intensidade da emoção?</p>
-        <div class="slider-container">
-            <label for="meuSlider">Nível de intensidade:</label>
-            <input type="range" min="1" max="10" value="5" class="slider" id="meuSlider">
-            <div class="slider-value" id="sliderValue">5</div>
-        </div>
-
-        <input type="submit" value="Registrar" id="registrarBtn">
-    </div>
-
-
-    <h2>Entradas registradas</h2>
-    <div id="listaRegistros"></div>
 
     <script>
+
+
+
    // SLIDEBAR 
    const slider = document.getElementById("meuSlider");
    const valueDisplay = document.getElementById("sliderValue");
@@ -64,111 +66,10 @@
    slider.addEventListener("input", updateValuePosition);
    window.addEventListener("load", updateValuePosition); // inicializa
         // ===================================
-        const sliderValue = document.getElementById('sliderValue');
-        const registrarBtn = document.getElementById('registrarBtn');
-        const mensagem = document.getElementById('mensagem');
-
-        let emocaoSelecionada = null;
-
-        // Atualiza valor do slider dinamicamente
-        slider.addEventListener('input', () => {
-            sliderValue.textContent = slider.value;
-        });
-
-        // Seleciona emoção clicada
-        document.querySelectorAll('.emotion').forEach(el => {
-            el.addEventListener('click', () => {
-                document.querySelectorAll('.emotion').forEach(e => e.classList.remove('selecionado'));
-                el.classList.add('selecionado');
-                emocaoSelecionada = el.getAttribute('data-emocao');
-            });
-        });
-
-        // Registrar entrada no localStorage
-        registrarBtn.addEventListener('click', () => {
-            if (!mensagem.value || !emocaoSelecionada) {
-                alert('Preencha a mensagem e selecione uma emoção.');
-                return;
-            }
-
-            const entrada = {
-                texto: mensagem.value,
-                emocao: emocaoSelecionada,
-                intensidade: slider.value,
-                data: new Date().toLocaleString()
-            };
-
-            const diarioSalvo = JSON.parse(localStorage.getItem('diarioEmocoes') || '[]');
-            diarioSalvo.push(entrada);
-            localStorage.setItem('diarioEmocoes', JSON.stringify(diarioSalvo));
-
-            alert('Entrada registrada com sucesso!');
-            mensagem.value = '';
-            emocaoSelecionada = null;
-            document.querySelectorAll('.emotion').forEach(e => e.classList.remove('selecionado'));
-            slider.value = 5;
-            sliderValue.textContent = 5;
-        });
-
-
-        // Listando 
-        document.addEventListener('DOMContentLoaded', () => {
-    const slider = document.getElementById('meuSlider');
-    const sliderValue = document.getElementById('sliderValue');
-    const btnRegistrar = document.querySelector('input[type="submit"]');
-    const listaRegistros = document.getElementById('listaRegistros');
-
-    // Atualiza valor em cima da bolinha
-    slider.addEventListener('input', () => {
-        sliderValue.textContent = slider.value;
-        const percent = (slider.value - 1) / 9 * 100;
-        sliderValue.style.left = `calc(${percent}% - 10px)`;
-    });
-
-    // Salva nova entrada
-    btnRegistrar.addEventListener('click', () => {
-        const mensagem = document.getElementById('mensagem').value;
-        const intensidade = slider.value;
-        const data = new Date().toLocaleString();
-
-        const novaEntrada = {
-            mensagem,
-            intensidade,
-            data
-        };
-
-        // Pega entradas anteriores
-        let entradas = JSON.parse(localStorage.getItem('diario')) || [];
-        entradas.push(novaEntrada);
-        localStorage.setItem('diario', JSON.stringify(entradas));
-
-        // Limpa textarea e atualiza lista
-        document.getElementById('mensagem').value = '';
-        listarEntradas();
-    });
-
-    function listarEntradas() {
-        const entradas = JSON.parse(localStorage.getItem('diario')) || [];
-
-        if (entradas.length === 0) {
-            listaRegistros.innerHTML = '<p>Nenhuma entrada registrada ainda.</p>';
-            return;
-        }
-
-        listaRegistros.innerHTML = entradas.map((entrada, index) => `
-            <div class="registro">
-                <h4>Registro ${index + 1} - ${entrada.data}</h4>
-                <p><strong>Mensagem:</strong> ${entrada.mensagem}</p>
-                <p><strong>Intensidade:</strong> ${entrada.intensidade}</p>
-            </div>
-            <hr>
-        `).join('');
-    }
-
-    // Exibe ao carregar a página
-    listarEntradas();
-});
-
+   
     </script>
+
+
+    
 </body>
 </html>
