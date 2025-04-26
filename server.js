@@ -166,6 +166,33 @@ app.post("/registrarDiario", async function(req, res){
     }
 });
 
+app.get("/LerDiario", async (req, res) => {
+    const userId = req.session.userId; 
+    const username = req.session.username;
+
+    try {
+        await client.connect(); // conecta (só se ainda não tiver conectado)
+        
+        const resultados = await client.db("DialogaDB")
+            .collection("diario")
+            .find({ userId: userId })
+            .toArray();
+
+        if (resultados.length > 0) {
+            res.render("ListaDiario", { username: username, diarios: resultados });
+            console.log("Consulta Realizada com sucesso")
+        } else {
+            res.status(404).send("<h1>Nenhum diário encontrado!</h1>");
+        }
+    } catch (error) {
+        console.error("Erro ao buscar diários:", error);
+        res.status(500).send("<h1>Erro interno do servidor</h1>");
+    } finally {
+        await client.close(); // fecha a conexão no final
+    }
+});
+
+
 
 
 

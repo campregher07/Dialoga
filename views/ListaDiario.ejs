@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diários de <%= username %></title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container" >
+        <h1>Diários de <%= username %></h1>
+
+        <% diarios.forEach(function(diario) { %>
+            <div class="diario">
+                <h2><%= diario.date.toLocaleDateString('pt-BR') || "Data não informada" %></h2>
+                <p><strong>Texto:</strong> <%= diario.texto %></p>
+            </div>
+        <% }); %>
+        <a href="/DiarioEmocional"><button>Escrever nova sessão</button></a>
+        <a href="/home"><button>Voltar para home</button></a>
+    </div>
+    
+</body>
+</html>
