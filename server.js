@@ -45,7 +45,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({extended:true}));
 
 app.get("/", function(req,res) {
-    res.sendFile(__dirname + "/login.html")
+    res.sendFile(__dirname + "/index.html")
 });
 
 app.get("/cadastre-se", function(req,res) {
