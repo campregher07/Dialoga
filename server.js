@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const mysql = require("mysql2");
-const bodyParser = require("body-parser")
+const bodyParser = require("body-parser");
 const session = require("express-session");
 const { MongoClient } = require("mongodb");
 const mongoose = require('mongoose');
@@ -63,8 +63,15 @@ app.get("/home", function(req, res) {
 
 app.get("/DiarioEmocional", (req, res) => {
     const username = req.session.username;
-    const userId = req.session.userId; // isso é importante!
+    const userId = req.session.userId; 
     res.render("Diario", { username, userId });
+});
+
+
+app.get("/LerDiario", (req, res) => {
+    const username = req.session.username;
+    const userId = req.session.userId; 
+    res.render("ListaDiario", { username, userId });
 });
 
 
@@ -171,18 +178,18 @@ app.get("/LerDiario", async (req, res) => {
     const username = req.session.username;
 
     try {
-        await client.connect(); // conecta (só se ainda não tiver conectado)
-        
+        await client.connect(); 
+
         const resultados = await client.db("DialogaDB")
             .collection("diario")
             .find({ userId: userId })
             .toArray();
 
         if (resultados.length > 0) {
-            res.render("ListaDiario", { username: username, diarios: resultados });
+            res.redirect("/LerDiario")
             console.log("Consulta Realizada com sucesso")
         } else {
-            res.status(404).send("<h1>Nenhum diário encontrado!</h1>");
+            res.send("<h1>Nenhum diário encontrado!</h1>");
         }
     } catch (error) {
         console.error("Erro ao buscar diários:", error);
@@ -201,5 +208,5 @@ app.listen(8083, function(){
 });
 
 // app.listen(3000, '0.0.0.0', () => {
-//     console.log("Servidor rodando na url http://172.20.10.2:3000");
+//     console.log("Servidor rodando na url http://192.168.100.85:3000");
 // });
