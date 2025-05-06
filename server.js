@@ -203,8 +203,9 @@ app.get("/LerDiario", async (req, res) => {
 
 
 
-app.listen(8083, function(){
-    console.log("Servidor rodando na url http://localhost:8083");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port http://localhost:${PORT}`);
 });
 
 // app.listen(3000, '0.0.0.0', () => {
