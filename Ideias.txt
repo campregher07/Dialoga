@@ -1,7 +1,0 @@
-Interação Direta: Os profissionais poderiam interagir diretamente com os usuários por meio de mensagens ou chats dentro do aplicativo, oferecendo um espaço seguro para conversas e apoio emocional Tela de acesso ao bate-papo do usuário em vulnerabilidade.
-
-Criação de Conteúdo: Os profissionais poderiam criar e compartilhar conteúdo relevante para os usuários, como dicas de saúde mental, informações sobre recursos disponíveis na comunidade e histórias inspiradoras de superação Tela inicial do usuário em vulnerabilidade.
-
-Moderação da Comunidade: Os profissionais poderiam atuar como moderadores da comunidade dentro do aplicativo, garantindo que o ambiente seja seguro, respeitoso e livre de julgamentos Tela de acesso à comunidade do usuário em vulnerabilidade.
-
-Feedback para o Chatbot: Os profissionais poderiam fornecer feedback para a equipe de desenvolvimento do chatbot, ajudando a aprimorar a inteligência artificial e garantir que o chatbot esteja oferecendo o suporte mais eficaz possível Tela de acesso ao chatbot do usuário em vulnerabilidade.

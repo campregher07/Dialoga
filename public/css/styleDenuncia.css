@@ -1,0 +1,313 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+    --primary-blue: #007bff;
+    --light-blue: #e7f0ff;
+    --dark-grey: #333;
+    --medium-grey: #666;
+    --light-grey: #ccc;
+    --lighter-grey: #f8f9fa;
+    --white: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--lighter-grey);
+    color: var(--dark-grey);
+    line-height: 1.6;
+}
+
+.main-header {
+    background-color: var(--white);
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-content {
+    width: 100%;
+    max-width: 900px; /* Adjust as needed */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--dark-grey);
+}
+
+.logo img {
+    height: 30px; /* Adjust logo size */
+    margin-right: 10px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-blue);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: var(--lighter-grey);
+}
+
+.report-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.report-section h1 {
+    font-size: 2.2rem;
+    color: var(--primary-blue);
+    margin-bottom: 10px;
+}
+
+.report-section p {
+    font-size: 0.95rem;
+    color: var(--medium-grey);
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+}
+
+.form-card {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: left;
+}
+
+.form-card h2 {
+    font-size: 1.3rem;
+    color: var(--dark-grey);
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: var(--dark-grey);
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column; /* Stack radio buttons vertically */
+    gap: 10px; /* Space between radio buttons */
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    background-color: var(--light-blue);
+    padding: 12px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    border: 1px solid transparent; /* Default border */
+}
+
+.radio-label:hover {
+    background-color: #dbeaff; /* Lighter blue on hover */
+}
+
+.radio-label input[type="radio"] {
+    display: none; /* Hide default radio button */
+}
+
+.radio-custom {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-blue);
+    position: relative;
+    margin-right: 15px;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.radio-custom::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--white); /* Inner circle background */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.2s ease-in-out;
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom {
+    background-color: var(--primary-blue); /* Fill background when checked */
+    border-color: var(--primary-blue);
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom::after {
+    transform: translate(-50%, -50%) scale(1); /* Show inner circle */
+}
+
+.radio-label i {
+    margin-right: 10px;
+    color: var(--primary-blue); /* Icon color */
+    font-size: 1.1rem;
+}
+
+textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid var(--light-grey);
+    border-radius: var(--border-radius);
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.95rem;
+    resize: vertical;
+    min-height: 100px;
+    box-sizing: border-box; /* Include padding in width */
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 30px; /* Adjust spacing below checkbox */
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    accent-color: var(--primary-blue); /* Styles the checkbox */
+}
+
+.checkbox-group label {
+    font-size: 0.95rem;
+    color: var(--medium-grey);
+    cursor: pointer;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end; /* Align button to the right */
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.submit-button {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    padding: 12px 25px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .report-section h1 {
+        font-size: 1.8rem;
+    }
+
+    .form-card {
+        padding: 20px;
+    }
+
+    .radio-group {
+        gap: 8px;
+    }
+
+    .radio-label {
+        padding: 10px 12px;
+    }
+
+    .submit-button {
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    .user-avatar {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+
+    .report-section h1 {
+        font-size: 1.5rem;
+    }
+
+    .report-section p {
+        font-size: 0.85rem;
+    }
+
+    .form-card h2 {
+        font-size: 1.1rem;
+    }
+
+    .radio-label {
+        font-size: 0.9rem;
+    }
+
+    .radio-custom {
+        width: 18px;
+        height: 18px;
+    }
+
+    .radio-custom::after {
+        width: 8px;
+        height: 8px;
+    }
+
+    .checkbox-group label {
+        font-size: 0.9rem;
+    }
+}

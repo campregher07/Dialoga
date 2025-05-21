@@ -322,3 +322,91 @@ body.home {
   background-color: #575757;
   color: white;
 }
+
+/* Estilos para o select */
+.styled-select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: white;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23024e76'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.styled-select:focus {
+  outline: none;
+  border-color: #024e76;
+  box-shadow: 0 0 0 2px rgba(2, 78, 118, 0.2);
+}
+
+/* Estilo para as opções */
+.styled-select option {
+  padding: 8px;
+  background-color: white;
+  color: #333;
+}
+
+.styled-select option:hover {
+  background-color: #f0f8ff;
+}
+
+/* Container para posicionar o ícone personalizado */
+.select-container {
+  position: relative;
+  width: 100%;
+}
+
+.select-container::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Estilos para o textarea */
+.styled-textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 14px;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    resize: vertical; /* Permite apenas redimensionamento vertical */
+    min-height: 100px;
+    transition: all 0.3s ease;
+}
+
+.styled-textarea:focus {
+    outline: none;
+    border-color: #024e76;
+    box-shadow: 0 0 0 2px rgba(2, 78, 118, 0.2);
+}
+
+/* Placeholder estilizado */
+.styled-textarea::placeholder {
+    color: #999;
+    opacity: 1; /* Para garantir consistência entre navegadores */
+}
+
+/* Estilo quando hover */
+.styled-textarea:hover {
+    border-color: #999;
+}

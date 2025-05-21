@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denúncias</title>
+    <link rel="stylesheet" href="/css/styleDenuncia.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <div class="container">
+        <div class="report-section">
+            <h1>Denúncias</h1>
+            <p>Use este canal para reportar situações de risco, abuso ou violência. Todas as denúncias são tratadas com sigilo e encaminhadas para profissionais qualificados.</p>
+
+            <form action="/Denunciar" method="post">
+                <div class="form-card">
+                    <h2>Nova Denúncia</h2>
+                    <div class="form-group">
+                        <label class="form-label">Tipo de Denúncia:</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="tipoDenuncia" value="abusoViolencia" checked>
+                                <span class="radio-custom"></span>
+                                <i class="fas fa-hand-fist"></i> Abuso ou violência
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="tipoDenuncia" value="riscoAutolesao">
+                                <span class="radio-custom"></span>
+                                <i class="fas fa-exclamation-circle"></i> Risco de autolesão
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="tipoDenuncia" value="assedioBullying">
+                                <span class="radio-custom"></span>
+                                <i class="fas fa-user-friends"></i> Assédio ou bullying
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="tipoDenuncia" value="outro">
+                                <span class="radio-custom"></span>
+                                <i class="fas fa-folder-open"></i> Outro
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricaoSituacao" class="form-label">Descreva a situação</label>
+                        <textarea id="descricaoSituacao" name="descricaoSituacao" placeholder="Descreva com detalhes o que está acontecendo..." rows="6"></textarea>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="anonimo" name="anonimo" value="1">
+                        <label for="anonimo">Enviar como denúncia anônima.</label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="submit-button">Enviar denúncia</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

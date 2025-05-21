@@ -1,6 +1,6 @@
 {
 
-  "name": "rote",
+  "name": "dialoga",
   "version": "0.1.0",
   "homepage": "./",
   "private": true,
@@ -12,12 +12,11 @@
     "express-session": "^1.18.1",
     "mongodb": "^6.15.0",
     "mongoose": "^8.13.2",
-    "mysql2": "^3.14.0",
-    "require": "^2.4.20"
+    "mysql2": "^3.14.0"
   },
 
   "scripts": {
-  "start": "node server.js" 
+  "start": "node index.js" 
   },
 
   "browserslist": {
