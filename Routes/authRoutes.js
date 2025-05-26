@@ -14,8 +14,8 @@ router.get("/recuperarSenha", function(req,res) {
     res.render("auth/recuperacao")
 });
 
-router.post('/authController', authController.login);
-router.post('/authController', authController.cadastrar);
-router.post('/authController', authController.recuperar);
+router.post('/login', authController.login);
+router.post('/cadastrar', authController.cadastrar);
+router.post('/recuperar', authController.recuperar);
 
 module.exports = router;

@@ -13,6 +13,8 @@ app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use(session({
     secret: "dialogaSegredo123",
@@ -31,6 +33,11 @@ app.use("/", diaryRoutes);
 app.use("/", reportRoutes);
 app.use('/', homeRoutes);
 
+// app.listen(3000, function(){
+//     console.log("Servidor rodando na url http://localhost:3000");
+// });
+
+
 app.listen(3000, '0.0.0.0', () => {
-    console.log("Servidor rodando na url http://192.168.100.85:3000");
-});
+    console.log("Servidor rodando na url http://172.20.10.2:3000");
+})

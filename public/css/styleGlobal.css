@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+    /* Cores base */
+    --primary-blue: #1F6494;
+    --light-blue: #e7f0ff;
+    --dark-grey: #333;
+    --medium-grey: #666;
+    --light-grey: #ccc;
+    --lighter-grey: #f8f9fa;
+    --white: #fff;
+    
+    /* Cores para humores */
+    --mood-yellow: #DED48A;
+    --mood-green: #B0DDB5;
+    --mood-default: #DDDADA;
+    --mood-blue: #B1BDD9;
+    --mood-purple: #C5B9DD;
+    --mood-red: #D9A1A1;
+    
+    /* Navegação */
+    --nav-icon-color: #929292;
+    --nav-icon-active-color: var(--primary-blue);
+    
+    /* Efeitos visuais */
+    --border-radius: 8px;
+    --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    --card-shadow-light: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --card-shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 60px;
+    background-color: var(--lighter-grey);
+    color: var(--dark-grey);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Container base */
+.container {
+    max-width: 900px;
+    margin: 0 auto; 
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* Responsividade base */
+@media (max-width: 768px) {
+    :root {
+        --border-radius: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --border-radius: 4px;
+    }
+}

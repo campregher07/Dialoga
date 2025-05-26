@@ -8,6 +8,7 @@ exports.Denunciar =  (req, res) => {
     const ocorreuCmg = req.body.ocorreuCmg;
     const quemOcorreu = req.body.quemOcorreu;
     const ocorrido = req.body.ocorrido;
+    const { username } = req.body;
  
      const insert = "INSERT INTO denuncias (anonimo, nome, UF, cidade, Bairro, quemOcorreu, ocorreuCmg, ocorrido) VALUES (?)";
      const values = [anonimo, nome, uf, cidade, bairro, quemOcorreu, ocorreuCmg, ocorrido];

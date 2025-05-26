@@ -3,69 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diario de Emoções</title>
-    <link rel="stylesheet" href="/css/style.css">
-    
+    <title>Novo Registro - Diário</title>
+    <link rel="stylesheet" href="css/styleGlobal.css">
+    <link rel="stylesheet" href="css/styleComponents.css">
+    <link rel="stylesheet" href="/css/pages/styleRegisterDiary.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Dialoga com si mesmo</h1>
-        
+    <%- include('../partials/header') %>
 
-        <h2>Nova sessão</h2>
-        <form action="/registrarDiario" method="POST">
-            <label for="texto">Começe sua sessão por aqui:</label><br>
-            <textarea id="texto" name="texto" rows="6" cols="40" placeholder="Digite aqui..."></textarea>
+    <div class="container main-content-register-diary">
+        <h1 class="page-title">Meu Diário</h1>
 
-            <p>Como você está se sentindo?</p>
+        <div class="date-display-card">
+            <p id="current-date">Carregando data...</p>
+        </div>
 
-            <div class="emotion-row">
-                <div class="emotion" style="background-color: #DED48A;" title="Feliz" data-emocao="Feliz"></div>
-                <div class="emotion" style="background-color: #B0DDB5;" title="Contente" data-emocao="Contente"></div>
-                <div class="emotion" style="background-color: #DDDADA;" title="Neutro" data-emocao="Neutro"></div>
-            </div><br>
-            <div class="emotion-row">
-                <div class="emotion" style="background-color: #B1BDD9;" title="Triste" data-emocao="Triste"></div>
-                <div class="emotion" style="background-color: #C5B9DD;" title="Ansioso" data-emocao="Ansioso"></div>
-                <div class="emotion" style="background-color: #D9A1A1;" title="Raivoso" data-emocao="Raivoso"></div>
+        <div class="form-card">
+            <h2>Como está se sentindo hoje?</h2>
+            <div class="emotion-selection-grid">
+                <div class="emotion-circle mood-yellow" data-humor="yellow" title="Feliz"></div>
+                <div class="emotion-circle mood-green" data-humor="green" title="Contente"></div>
+                <div class="emotion-circle mood-default" data-humor="default" title="Neutro"></div>
+                <div class="emotion-circle mood-purple" data-humor="purple" title="Ansioso"></div>
+                <div class="emotion-circle mood-red" data-humor="red" title="Irritado"></div>
+                <div class="emotion-circle mood-blue" data-humor="blue" title="Triste"></div>
             </div>
 
-            <p>Qual a intensidade da emoção?</p>
-            <div class="slider-container">
-                <label for="meuSlider">Nível de intensidade:</label>
-                <input type="range" min="1" max="10" value="1" class="slider" id="meuSlider" name="meuSlider">
-                <div class="slider-value" id="sliderValue">5</div>
-            </div>
+            <h2 class="section-title">Desabafe aqui</h2>
+            <form action="/registrarDiario" method="POST" id="diaryForm">
+                <input type="hidden" name="humor" id="selectedHumor">
+                <textarea id="texto" name="texto" rows="6" class="centered-textarea" placeholder="Descreva com detalhes o que está acontecendo..."></textarea>
 
-            
-            <input type="submit" value="Registrar" id="registrarBtn">
-        
-       
-    </form>
-    <a href="/LerDiario"><button>Ler meu diário</button></a>
-    <a href="javascript:history.back()">Voltar</a>
-</div>
-    <script>  // SLIDEBAR 
-        const slider = document.getElementById("meuSlider");
-        const valueDisplay = document.getElementById("sliderValue");
-        
-        function updateValuePosition() {
-          const min = parseInt(slider.min);
-          const max = parseInt(slider.max);
-          const val = parseInt(slider.value);
-          
-          const percent = (val - min) / (max - min);
-          const sliderWidth = slider.offsetWidth;
-          const thumbOffset = 10; // metade da largura do thumb
-          const left = percent * (sliderWidth - 20) + thumbOffset;
-        
-          valueDisplay.style.left = `${left}px`;
-          valueDisplay.textContent = val;
-        }
-        
-        slider.addEventListener("input", updateValuePosition);
-        window.addEventListener("load", updateValuePosition); // inicializa
-             // ===================================
-             </script>
+                <div class="form-actions">
+                    <button type="submit" class="submit-button">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>
+
+    <script>
+        // Exibir a data atual
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateElement = document.getElementById('current-date');
+            const today = new Date();
+            const options = { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' };
+            dateElement.textContent = today.toLocaleDateString('pt-BR', options);
+
+            // Lógica para selecionar o humor
+            const emotionCircles = document.querySelectorAll('.emotion-circle');
+            const selectedHumorInput = document.getElementById('selectedHumor');
+
+            emotionCircles.forEach(circle => {
+                circle.addEventListener('click', () => {
+                    // Remove a classe 'selected' de todos os círculos
+                    emotionCircles.forEach(c => c.classList.remove('selected'));
+                    // Adiciona a classe 'selected' apenas ao círculo clicado
+                    circle.classList.add('selected');
+                    // Define o valor do humor no input escondido
+                    selectedHumorInput.value = circle.dataset.humor;
+                });
+            });
+
+        document.getElementById('diaryForm').addEventListener('submit', function(e) {
+            const texto = document.getElementById('texto').value.trim();
+
+            if (!texto) {
+            e.preventDefault(); 
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campos obrigatórios!',
+                text: 'Por favor, preencha todos os campos.',
+                confirmButtonColor: '#1F6494'
+            });
+            }
+        });
+        });
+    </script>
 </body>
 </html>

@@ -1,38 +1,33 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Home | Dialoga</title>
-  <link rel="stylesheet" href="/css/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Home | Dialoga</title>
+    <link rel="stylesheet" href="css/styleGlobal.css">
+    <link rel="stylesheet" href="css/styleComponents.css">
+    <link rel="stylesheet" href="css/pages/styleHome.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body class="home">
-    <div class="home-container">
-        <div class="welcome">
-        <h1>Olá, <%= username %>!</h1>
-        <p>Como você está se sentindo hoje?</p>
+<body class="home-page"> 
+  <%- include('../partials/header') %> 
+  <div class="container home-content"> 
+    <div class="welcome-section">
+            <h1 class="welcome-title">Olá, <%= username %>!</h1>
+            <p class="welcome-text">Como você está se sentindo hoje?</p>
         </div>
 
-        <div class="emotion-box">
-        <div class="emotion-row">
-            <div class="emotion" style="background-color: #DED48A;" title="Feliz"></div>
-            <div class="emotion" style="background-color: #B0DDB5;" title="Contente"></div>
-            <div class="emotion" style="background-color: #DDDADA;" title="Neutro"></div>
+        <div class="emotion-selection-grid home-emotion-grid">
+            <div class="emotion-circle mood-yellow" data-humor="feliz" title="Feliz"></div>
+            <div class="emotion-circle mood-green" data-humor="contente" title="Contente"></div>
+            <div class="emotion-circle mood-default" data-humor="neutro" title="Neutro"></div>
+            <div class="emotion-circle mood-blue" data-humor="triste" title="Triste"></div>
+            <div class="emotion-circle mood-purple" data-humor="ansioso" title="Ansioso"></div>
+            <div class="emotion-circle mood-red" data-humor="raivoso" title="Raivoso"></div>
         </div>
-        <div class="emotion-row">
-            <div class="emotion" style="background-color: #B1BDD9;" title="Triste"></div>
-            <div class="emotion" style="background-color: #C5B9DD;" title="Ansioso"></div>
-            <div class="emotion" style="background-color: #D9A1A1;" title="Raivoso"></div>
-        </div>
-        </div>
-        <br>
-
-
-        <%- include('../partials/header') %>
-
-
     </div>
-  </body>
 
+    <%- include('../partials/footer') %>
+</body>
 </html>

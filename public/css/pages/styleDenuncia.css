@@ -1,0 +1,149 @@
+.report-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.report-section h1 {
+    font-size: 2.2rem;
+    color: var(--primary-blue);
+    margin-bottom: 10px;
+}
+
+.report-section p {
+    font-size: 0.95rem;
+    color: var(--medium-grey);
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    background-color: var(--light-blue);
+    padding: 12px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.radio-label:hover {
+    background-color: #dbeaff;
+}
+
+.radio-label input[type="radio"] {
+    display: none;
+}
+
+.radio-custom {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-blue);
+    position: relative;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.radio-custom::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--white);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.2s ease-in-out;
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom {
+    background-color: var(--primary-blue);
+    border-color: var(--primary-blue);
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.radio-label i {
+    margin-right: 10px;
+    color: var(--primary-blue);
+    font-size: 1.1rem;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    accent-color: var(--primary-blue);
+}
+
+.checkbox-group label {
+    font-size: 0.95rem;
+    color: var(--medium-grey);
+    cursor: pointer;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+@media (max-width: 768px) {
+    .report-section h1 {
+        font-size: 1.8rem;
+    }
+
+    .radio-group {
+        gap: 8px;
+    }
+
+    .radio-label {
+        padding: 10px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .report-section h1 {
+        font-size: 1.5rem;
+    }
+
+    .report-section p {
+        font-size: 0.85rem;
+    }
+
+    .radio-label {
+        font-size: 0.9rem;
+    }
+
+    .radio-custom {
+        width: 18px;
+        height: 18px;
+    }
+
+    .radio-custom::after {
+        width: 8px;
+        height: 8px;
+    }
+
+    .checkbox-group label {
+        font-size: 0.9rem;
+    }
+}

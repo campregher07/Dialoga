@@ -4,6 +4,9 @@
   "version": "0.1.0",
   "homepage": "./",
   "private": true,
+  "scripts": {
+    "start": "node index.js" 
+  },
 
   "dependencies": {
     "body-parser": "^2.2.0",
@@ -13,10 +16,6 @@
     "mongodb": "^6.15.0",
     "mongoose": "^8.13.2",
     "mysql2": "^3.14.0"
-  },
-
-  "scripts": {
-  "start": "node index.js" 
   },
 
   "browserslist": {

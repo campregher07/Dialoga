@@ -1,0 +1,206 @@
+/* Header */
+.main-header {
+    background-color: var(--white);
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--dark-grey);
+}
+
+.logo img {
+    height: 30px;
+    margin-right: 10px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-blue);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--white);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    height: 60px;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--nav-icon-color);
+    text-decoration: none;
+    font-size: 0.75rem;
+    flex: 1;
+    height: 100%;
+    transition: color 0.2s ease;
+}
+
+.nav-item i {
+    font-size: 1.4rem;
+    margin-bottom: 2px;
+}
+
+.nav-item.active,
+.nav-item:hover {
+    color: var(--nav-icon-active-color);
+}
+
+/* Cards */
+.form-card {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: var(--dark-grey);
+}
+
+textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid var(--light-grey);
+    border-radius: var(--border-radius);
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.95rem;
+    resize: vertical;
+    min-height: 100px;
+    box-sizing: border-box;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* Buttons */
+.submit-button {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    padding: 12px 25px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+/* Emotion Circles */
+.emotion-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.emotion-circle:hover {
+    transform: scale(1.05);
+}
+
+.emotion-circle.selected {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+/* Mood colors */
+.emotion-circle.mood-yellow { background-color: var(--mood-yellow); }
+.emotion-circle.mood-green { background-color: var(--mood-green); }
+.emotion-circle.mood-default { background-color: var(--mood-default); }
+.emotion-circle.mood-blue { background-color: var(--mood-blue); }
+.emotion-circle.mood-purple { background-color: var(--mood-purple); }
+.emotion-circle.mood-red { background-color: var(--mood-red); }
+
+/* Responsive Components */
+@media (max-width: 768px) {
+    .form-card {
+        padding: 20px;
+    }
+    
+    .emotion-circle {
+        width: 55px;
+        height: 55px;
+    }
+    
+    .submit-button {
+        padding: 10px 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.2rem;
+    }
+    
+    .user-avatar {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .emotion-circle {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .submit-button {
+        width: 100%;
+    }
+}

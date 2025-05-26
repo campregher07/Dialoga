@@ -1,0 +1,67 @@
+.main-content-register-diary {
+    max-width: 500px;
+    margin: 20px auto 80px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.page-title {
+    font-size: 2rem;
+    color: var(--dark-grey);
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.date-display-card {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--medium-grey);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    color: var(--dark-grey);
+    text-align: left;
+    border-bottom: none;
+}
+
+.emotion-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    justify-items: center;
+    margin-bottom: 25px;
+}
+.centered-textarea{
+ display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .main-content-register-diary {
+        margin: 15px auto 75px auto;
+    }
+
+    .page-title {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content-register-diary {
+        padding: 0 15px;
+    }
+
+    .page-title {
+        font-size: 1.6rem;
+    }
+}

@@ -1,25 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Diários de <%= username %></title>
-    <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Diário</title>
+    <link rel="stylesheet" href="css/styleGlobal.css">
+    <link rel="stylesheet" href="css/styleComponents.css">
+    <link rel="stylesheet" href="/css/pages/styleDiary.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="container" >
-        <h1>Diários de <%= username %></h1>
+    <%- include('../partials/header') %>
 
-        <% if (diarios && diarios.length > 0) { %>
-            <% diarios.forEach(function(diario) { %>
-                <div class="diario">
-                    <h2><%= diario.date.toLocaleDateString('pt-BR') || "Data não informada" %></h2>
-                    <p><strong>Texto:</strong> <%= diario.texto %></p>
+    <div class="main-content-diary">
+        <h1 class="page-title">Meu Diário</h1>
+
+        <div class="search-filter-container">
+            <!-- <div class="search-box">
+                
+                <input type="text"  placeholder="Buscar">
+            </div> -->
+            <form action="/BuscarDiario" method="post" class="filter-form">
+                <div class="filter-dropdown" >
+                    <select name="humor" id="humor" >
+                        <option value="">Humor</option>
+                        <option value="yellow">Feliz</option>
+                        <option value="green">Contente</option>
+                        <option value="default">Neutro</option>
+                        <option value="purple">Ansioso</option>
+                        <option value="red">Irritado</option>
+                        <option value="blue">Triste</option>
+                    </select>
+                    <i class="fas fa-chevron-down dropdown-icon"></i>
                 </div>
-            <% }); %>
-        <% } else { %>
-            <p>Nenhum diário encontrado.</p>
-        <% } %>
-            <a href="javascript:history.back()">Voltar</a>
+                <button type="submit" class="button-drop"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+
+        <div class="diary-grid">
+            <% if (diarios && diarios.length > 0) { %>
+                <% diarios.forEach(function(diario) { %>
+                    <div class="diary-card mood-<%= diario.humor%>">
+                        <div class="mood-circle"></div> 
+                        <p class="diary-day"><%= diario.dayOfWeek %></p>
+                        <p class="diary-date"><%= diario.date.toLocaleDateString('pt-BR') %></p>
+                        <span class="diario-texto" data-full-text="<%= diario.texto %>"><%= (() => { const t = diario.texto.trim(); const p = t.split(/\s+/); return p.length > 30 ? p.slice(0, Math.floor(p.length*0.05)).join(' ') + '...' : t; })() %></span>
+                        <% if (diario.texto.trim().split(/\s+/).length > 30) { %>
+                            <button class="toggle-texto" >Mostrar mais</button>
+                        <% } %>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p class="no-diary-entries">Nenhum diário encontrado.</p>
+            <% } %>
+            
+            <a href="/DiarioEmocional">
+                <div class="diary-card add-new-card">
+                    <i href="/DiarioEmocional" class="fas fa-pen"></i>
+                </div>
+            </a>
+        </div>
     </div>
-    
-</body>
+
+    <%- include('../partials/footer') %>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.toggle-texto').forEach(button => {
+                button.addEventListener('click', function() {
+                    const card = button.closest('.diary-card');
+                    const textoElement = card.querySelector('.diario-texto');
+                    const textoCompleto = textoElement.getAttribute('data-full-text');
+                    
+                    if (textoElement.textContent.includes('...')) {
+                        // Mostrar completo
+                        textoElement.textContent = textoCompleto;
+                        button.textContent = 'Mostrar menos';
+                    } else {
+                        // Mostrar menor
+                        const palavras = textoCompleto.trim().split(/\s+/);
+                        const porcentagem = Math.floor(palavras.length * 0.05);
+                        textoElement.textContent = palavras.slice(0, porcentagem).join(' ') + '...';
+                        button.textContent = 'Mostrar mais';
+                    }
+                });
+            });
+        });
+</script>
+    </body>
 </html>
