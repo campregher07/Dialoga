@@ -1,3 +1,4 @@
+const connection = require('../db/mysql');
 
 exports.Denunciar =  (req, res) => {
     const anonimo = req.body.anonimo;
@@ -5,13 +6,12 @@ exports.Denunciar =  (req, res) => {
     const uf = req.body.uf;
     const cidade = req.body.cidade;
     const bairro = req.body.bairro;
-    const ocorreuCmg = req.body.ocorreuCmg;
-    const quemOcorreu = req.body.quemOcorreu;
+    const tipoDenuncia = req.body.tipoDenuncia;
     const ocorrido = req.body.ocorrido;
-    const { username } = req.body;
+
  
-     const insert = "INSERT INTO denuncias (anonimo, nome, UF, cidade, Bairro, quemOcorreu, ocorreuCmg, ocorrido) VALUES (?)";
-     const values = [anonimo, nome, uf, cidade, bairro, quemOcorreu, ocorreuCmg, ocorrido];
+     const insert = "INSERT INTO denuncias (anonimo, nome, UF, cidade, Bairro,TipoDenuncia, ocorrido) VALUES (?)";
+     const values = [anonimo, nome, uf, cidade, bairro,tipoDenuncia, ocorrido];
 
      connection.query(insert, [values], function(err, results){
         if(err){

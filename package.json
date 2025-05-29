@@ -1,37 +1,68 @@
 {
 
   "name": "dialoga",
+
   "version": "0.1.0",
+
   "homepage": "./",
+
   "private": true,
+
   "scripts": {
-    "start": "node index.js" 
+
+    "start": "node index.js"
+
   },
 
   "dependencies": {
+
     "body-parser": "^2.2.0",
+
     "ejs": "^3.1.10",
+
     "express": "^5.1.0",
+
     "express-session": "^1.18.1",
+
     "mongodb": "^6.15.0",
+
     "mongoose": "^8.13.2",
-    "mysql2": "^3.14.0"
+
+    "mysql2": "^3.14.0",
+
+    "sweetalert": "^2.1.2"
+
   },
 
   "browserslist": {
+
     "production": [
+
       ">0.2%",
+
       "not dead",
+
       "not op_mini all"
+
     ],
+
     "development": [
+
       "last 1 chrome version",
+
       "last 1 firefox version",
+
       "last 1 safari version"
+
     ]
+
   },
+
   "devDependencies": {
+
     "gh-pages": "^6.3.0"
+
   }
+
 }
 
