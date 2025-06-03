@@ -16,7 +16,7 @@ const diarySchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        enum: ["Feliz", "Contente", "Neutro", "Ansioso", "Triste", "Irritado"]
+        enum: ["yellow", "green", "default", "purple", "red", "blue"]
     },
     date: {
         type: Date,
