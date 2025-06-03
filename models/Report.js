@@ -11,7 +11,7 @@ const reportSchema = new mongoose.Schema({
         // Não é obrigatório se for anônimo
     },
     tipoDenuncia: {
-        type: String,
+        type: Array,
         trim: true
     },
     ocorrido: {
