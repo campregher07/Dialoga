@@ -1,86 +1,106 @@
-const { MongoClient } = require("mongodb");
-const uri = "mongodb://localhost:27017/DialogaDB";
-const client = new MongoClient(uri);
+const Diary = require("../models/Diary"); 
+const mongoose = require("mongoose");
 
 exports.registrar = async (req, res) => {
-    const { texto } = req.body;
-    const { humor } = req.body;
-    const userId = req.session._id;
-    console.log("Registrar: ",req.session)
+    const { texto, humor } = req.body;
+    const userId = req.session.userId; 
 
-    const novoRegistro = {
-        userId: userId,
-        texto,
-        humor,
-        date: new Date()
-    };
+
+    if (!texto || !humor) {
+        console.error("Texto e humor são obrigatórios.");
+        return res.redirect("/DiarioEmocional"); 
+    }
+
+    if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+        console.error("ID de usuário inválido na sessão.");
+        return res.status(401).redirect("/"); 
+    }
 
     try {
-        await client.connect();
-        const diario = client.db("DialogaDB").collection("diario");
-        await diario.insertOne(novoRegistro);
-        res.redirect("/LerDiario");
+        await Diary.create({
+            userId: userId, 
+            texto: texto,
+            humor: humor
+        });
+
+        console.log("Registro do diário salvo com sucesso no MongoDB Atlas!");
+        res.redirect("/DiarioEmocional"); 
+
     } catch (err) {
-        console.error("Erro no MongoDB:", err);
-        res.status(500).send("Erro interno");
-    } finally {
-        await client.close();
+        console.error("Erro ao registrar diário no MongoDB:", err);
+        const { username } = req.session;
+        res.status(500).render("Diary/Diario", { 
+            username, 
+            userId, 
+            currentPage: "diary", 
+            erroMessage: "Erro interno ao salvar registro." 
+        });
     }
 };
 
 exports.listar = async (req, res) => {
-    const userId = req.session._id;
+    const userId = req.session.userId;
     const username = req.session.username;
 
-    console.log("Listar: ", req.session)
-    try {
-        await client.connect(); 
-    
-        const resultados = await client.db("DialogaDB")
-            .collection("diario")
-            .find({ userId: userId})
-            .sort({date: -1})
-            .toArray();
+    if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+        console.error("ID de usuário inválido na sessão ao listar.");
+        return res.status(401).redirect("/");
+    }
 
-        res.render("Diary/ListaDiario", { diarios: resultados, username, currentPage: 'diary' });
-    
+    try {
+        const resultados = await Diary.find({ userId: userId }).sort({ date: -1 }); 
+
+        res.render("Diary/ListaDiario", { 
+            diarios: resultados, 
+            username, 
+            currentPage: "diary" 
+        });
+
     } catch (error) {
         console.error("Erro ao buscar diários:", error);
-        res.render("Denuncias/ListaDiario", { diarios: [], username });
-    } finally {
-        await client.close();
+        // Corrigir o caminho da view no erro
+        res.status(500).render("Diary/ListaDiario", { 
+            diarios: [], 
+            username, 
+            currentPage: "diary",
+            erroMessage: "Erro ao carregar seus registros."
+        }); 
     }
 };
 
 exports.search = async (req, res) => {
-    const userId = req.session._id;
-    // if (!userId) {
-    //     return res.status(401).send("Usuário não autenticado");
-    // }
+    const userId = req.session.userId;
     const username = req.session.username;
-    const { humor } = req.body
-    console.log("search", "Session: ", req.session, "Body: ",req.body)
+    const { humor } = req.body;
 
-    try {
-        await client.connect(); 
-    
-        let resultados = await client.db("DialogaDB")
-            .collection("diario")
-            .find({ userId: userId})
-            .sort({date: -1})
-            .toArray();
-        if (humor) {
-            resultados = resultados.filter(diario => diario.humor === humor)
-        }
-        res.render("Diary/ListaDiario", { diarios: resultados, username, currentPage: 'diary' });
-    
-    } catch (error) {
-        console.error("Erro ao buscar diários:", error);
-        res.render("Diary/ListaDiario", { diarios: [], username });
-    } finally {
-        await client.close();
+    if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+        console.error("ID de usuário inválido na sessão ao buscar.");
+        return res.status(401).redirect("/");
     }
 
+    try {
+        const query = { userId: userId };
+        if (humor) {
+            query.humor = humor; 
+        }
 
+
+        const resultados = await Diary.find(query).sort({ date: -1 });
+
+        res.render("Diary/ListaDiario", { 
+            diarios: resultados, 
+            username, 
+            currentPage: "diary",
+            selectedHumor: humor 
+        });
+
+    } catch (error) {
+        console.error("Erro ao buscar diários por humor:", error);
+        res.status(500).render("Diary/ListaDiario", { 
+            diarios: [], 
+            username, 
+            currentPage: "diary",
+            erroMessage: "Erro ao buscar registros."
+        });
+    }
 };
-
