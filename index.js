@@ -1,11 +1,17 @@
 const express = require("express");
 const app = express();
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const bodyParser = require("body-parser");
 const path = require("path");
 require('dotenv').config();
 
 
+const dbURI = process.env.MONGODB_URI;
+if (!dbURI) {
+    console.error("Erro: Variável de ambiente MONGODB_URI não definida.");
+    process.exit(1);
+}
 
 const conectarMongo = require("./db/mongo");
 conectarMongo();
@@ -19,10 +25,24 @@ app.use(bodyParser.json());
 
 
 app.use(session({
-    secret: "dialogaSegredo123",
+    secret: process.env.SESSION_SECRET || "dialogaSegredo123", // Use variável de ambiente para o segredo!
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false, // Não salvar sessões não inicializadas
+    store: MongoStore.create({ 
+        mongoUrl: dbURI, 
+        collectionName: "sessions" // Nome da coleção para guardar sessões
+    }),
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 // Duração do cookie (ex: 1 dia)
+        // secure: process.env.NODE_ENV === "production" // Descomente isso em produção se usar HTTPS
+    }
 }));
+
+app.use((req, res, next) => {
+    res.locals.username = req.session.username;
+    res.locals.userId = req.session.userId;
+    next();
+});
 
 // Rotas
 const authRoutes = require("./Routes/authRoutes");
@@ -40,3 +60,4 @@ app.listen(PORT, '0.0.0.0', () => {
     console.log(`Servidor rodando na url http://localhost:${PORT}`);
 });
 
+module.exports = app;
