@@ -1,6 +1,5 @@
-const { MongoClient } = require("mongodb");
-const uri = "mongodb://localhost:27017/DialogaDB";
-const client = new MongoClient(uri);
+const mongoose = require("mongoose");
+const Report = require('../models/Report'); 
 
 exports.Denunciar = async (req, res) => {
     const { anonimo, tipoDenuncia, ocorrido  } = req.body;
@@ -19,15 +18,17 @@ exports.Denunciar = async (req, res) => {
     }
 
     try {
-        await client.connect();
-        const report = client.db("DialogaDB").collection("reports");
-        await report.insertOne(newReport);
-        res.redirect("/Denuncias");
-    } catch (err) {
-        console.error("Erro no MongoDB:", err);
-        res.status(500).send("Erro interno");
-    } finally {
-        await client.close();
-    }
+        await Diary.create(newReport);
 
+        console.log("Registro do diário salvo com sucesso no MongoDB Atlas!");
+        res.redirect("/DiarioEmocional"); 
+    } catch (err) {
+        console.error("Erro ao registrar denúncia no MongoDB:", err);
+        res.status(500).render("Reposts/denuncias", { 
+            username, 
+            userId, 
+            currentPage: "report", 
+            erroMessage: "Erro interno ao salvar denúncia." 
+        });
+    }
 };
