@@ -1,25 +1,33 @@
-const connection = require('../db/mysql');
+const { MongoClient } = require("mongodb");
+const uri = "mongodb://localhost:27017/DialogaDB";
+const client = new MongoClient(uri);
 
-exports.Denunciar =  (req, res) => {
-    const anonimo = req.body.anonimo;
-    const nome = req.body.nome;
-    const uf = req.body.uf;
-    const cidade = req.body.cidade;
-    const bairro = req.body.bairro;
-    const tipoDenuncia = req.body.tipoDenuncia;
-    const ocorrido = req.body.ocorrido;
+exports.Denunciar = async (req, res) => {
+    const { anonimo, tipoDenuncia, ocorrido  } = req.body;
+    const { username } = req.session;
 
- 
-     const insert = "INSERT INTO denuncias (anonimo, nome, UF, cidade, Bairro,TipoDenuncia, ocorrido) VALUES (?)";
-     const values = [anonimo, nome, uf, cidade, bairro,tipoDenuncia, ocorrido];
+    const newReport = {
+        tipoDenuncia,
+        ocorrido,
+        data: new Date().toLocaleDateString("pt-br"),
+    };
 
-     connection.query(insert, [values], function(err, results){
-        if(err){
-            console.error('Erro ao fazer denúncia:', err);
-            res.status(500).json({ error: 'Erro interno ao fazer denúncia.' });
-        }
+    if (anonimo !== '1') {
+        newReport.nome = username;
+    } else {
+        newReport.anonimo = true;
+    }
 
-        console.log("Denuncia feita com sucesso")
-        res.redirect("/home")
-     });
+    try {
+        await client.connect();
+        const report = client.db("DialogaDB").collection("reports");
+        await report.insertOne(newReport);
+        res.redirect("/Denuncias");
+    } catch (err) {
+        console.error("Erro no MongoDB:", err);
+        res.status(500).send("Erro interno");
+    } finally {
+        await client.close();
+    }
+
 };

@@ -3,7 +3,7 @@ const router = express.Router();
 const diaryController = require('../Controllers/diaryController');
 
 router.get('/DiarioEmocional', (req, res) => {
-    if (!req.session.userId) {
+    if (typeof req.session.userId == undefined || req.session.userId == null) {
         return res.redirect('/');
     }
     const { username, userId } = req.session;

@@ -22,7 +22,7 @@
             </div> -->
             <form action="/BuscarDiario" method="post" class="filter-form">
                 <div class="filter-dropdown" >
-                    <select name="humor" id="humor" >
+                    <select name="humor" id="humor" class="filter" >
                         <option value="">Humor</option>
                         <option value="yellow">Feliz</option>
                         <option value="green">Contente</option>
@@ -44,7 +44,7 @@
                         <div class="mood-circle"></div> 
                         <p class="diary-day"><%= diario.dayOfWeek %></p>
                         <p class="diary-date"><%= diario.date.toLocaleDateString('pt-BR') %></p>
-                        <span class="diario-texto" data-full-text="<%= diario.texto %>"><%= (() => { const t = diario.texto.trim(); const p = t.split(/\s+/); return p.length > 30 ? p.slice(0, Math.floor(p.length*0.05)).join(' ') + '...' : t; })() %></span>
+                        <span class="diary-content" data-full-text="<%= diario.texto %>"><%= (() => { const t = diario.texto.trim(); const p = t.split(/\s+/); return p.length > 30 ? p.slice(0, Math.floor(p.length*0.05)).join(' ') + '...' : t; })() %></span>
                         <% if (diario.texto.trim().split(/\s+/).length > 30) { %>
                             <button class="toggle-texto" >Mostrar mais</button>
                         <% } %>
@@ -69,7 +69,7 @@
             document.querySelectorAll('.toggle-texto').forEach(button => {
                 button.addEventListener('click', function() {
                     const card = button.closest('.diary-card');
-                    const textoElement = card.querySelector('.diario-texto');
+                    const textoElement = card.querySelector('.diary-content');
                     const textoCompleto = textoElement.getAttribute('data-full-text');
                     
                     if (textoElement.textContent.includes('...')) {

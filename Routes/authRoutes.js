@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose')
 const authController = require('../Controllers/authController');
+require("../models/User")
+
 
 router.get("/", function(req,res) {
     res.render("auth/index")

@@ -4,8 +4,12 @@ const reportController = require('../Controllers/reportController');
 const { report } = require('process');
 
 router.get("/Denuncias", function(req, res){
+        if (typeof req.session.userId == undefined || req.session.userId == null) {
+        return res.redirect('/');
+    }
+
     const { username } = req.session;
-    res.render("Reports/Denuncias", {username, currentPage: 'report'})
+    res.render("Reports/Denuncias", {username: username, currentPage: 'report'})
 });
 
 router.post('/reportController', reportController.Denunciar);

@@ -5,11 +5,11 @@ const client = new MongoClient(uri);
 exports.registrar = async (req, res) => {
     const { texto } = req.body;
     const { humor } = req.body;
-    const userId = req.session.userId;
-
+    const userId = req.session._id;
+    console.log("Registrar: ",req.session)
 
     const novoRegistro = {
-        userId: parseInt(userId),
+        userId: userId,
         texto,
         humor,
         date: new Date()
@@ -19,7 +19,7 @@ exports.registrar = async (req, res) => {
         await client.connect();
         const diario = client.db("DialogaDB").collection("diario");
         await diario.insertOne(novoRegistro);
-        res.redirect("/DiarioEmocional");
+        res.redirect("/LerDiario");
     } catch (err) {
         console.error("Erro no MongoDB:", err);
         res.status(500).send("Erro interno");
@@ -29,15 +29,17 @@ exports.registrar = async (req, res) => {
 };
 
 exports.listar = async (req, res) => {
-    const userId = req.session.userId; 
+    const userId = req.session._id;
     const username = req.session.username;
-    
+
+    console.log("Listar: ", req.session)
     try {
         await client.connect(); 
     
         const resultados = await client.db("DialogaDB")
             .collection("diario")
-            .find({ userId: userId })
+            .find({ userId: userId})
+            .sort({date: -1})
             .toArray();
 
         res.render("Diary/ListaDiario", { diarios: resultados, username, currentPage: 'diary' });
@@ -51,12 +53,13 @@ exports.listar = async (req, res) => {
 };
 
 exports.search = async (req, res) => {
-    const userId = req.session.userId;
-    if (!userId) {
-        return res.status(401).send("Usuário não autenticado");
-    }
+    const userId = req.session._id;
+    // if (!userId) {
+    //     return res.status(401).send("Usuário não autenticado");
+    // }
     const username = req.session.username;
     const { humor } = req.body
+    console.log("search", "Session: ", req.session, "Body: ",req.body)
 
     try {
         await client.connect(); 

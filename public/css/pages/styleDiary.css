@@ -19,35 +19,7 @@
     margin-bottom: 30px;
     flex-wrap: wrap;
 }
-/* 
-.search-box {
-    flex-grow: 1;
-    position: relative;
-}
 
-.search-box input {
-    width: 100%;
-    padding: 12px 15px 12px 45px;
-    border: 1px solid var(--light-grey);
-    border-radius: var(--border-radius);
-    font-size: 1rem;
-    box-sizing: border-box;
-    background-color: var(--white);
-}
-
-.search-box input:focus {
-    outline: none;
-    border-color: var(--primary-blue);
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
-}
-
-.search-box i {
-    position: absolute;
-    left: 15px;
-    top: 30%;
-    transform: translateY(-50%);
-    color: var(--medium-grey);
-} */
 
 /* Container do formulário - adicione esta classe ao <form> */
 .filter-form {
@@ -110,8 +82,8 @@
 .diary-card {
     background-color: var(--white);
     border-radius: var(--border-radius);
-    padding: 20px;
-    margin: 10px; 
+    padding: 10px;
+    margin: 20px; 
     text-align: center;
     box-shadow: var(--card-shadow);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -122,7 +94,19 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    overflow: hidden;              /* impede que o conteúdo ultrapasse as bordas */
+    word-break: break-word;        /* quebra palavras longas */
 }
+
+.diary-card p, .diary-card .diary-text {
+    max-width: 100%;
+    overflow-wrap: break-word;     /* quebra palavras longas */
+    word-break: break-word;
+    white-space: pre-line;         /* mantém quebras de linha, mas permite quebra automática */
+    overflow: hidden;              /* impede que o conteúdo ultrapasse as bordas */
+    text-overflow: ellipsis;       /* adiciona "..." se o texto for muito longo */
+}
+
 
 .diary-card:hover {
     transform: translateY(-3px);
@@ -158,6 +142,7 @@
     color: var(--medium-grey);
     margin-top: 5px;
 }
+
 
 .no-diary-entries {
     grid-column: 1 / -1;
