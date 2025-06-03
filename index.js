@@ -35,8 +35,8 @@ app.use("/", diaryRoutes);
 app.use("/", reportRoutes);
 app.use('/', homeRoutes);
 
-const PORT = process.env.PORT || 3000; // Usar variável de ambiente ou porta padrão
-app.listen(PORT, '0.0.0.0', () => { // Escutar em 0.0.0.0 para acessibilidade externa se necessário
+const PORT = process.env.PORT || 3000; 
+app.listen(PORT, '0.0.0.0', () => { 
     console.log(`Servidor rodando na url http://localhost:${PORT}`);
 });
 
