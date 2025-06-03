@@ -18,10 +18,10 @@ exports.Denunciar = async (req, res) => {
     }
 
     try {
-        await Diary.create(newReport);
+        await Report.create(newReport);
 
         console.log("Registro do diário salvo com sucesso no MongoDB Atlas!");
-        res.redirect("/DiarioEmocional"); 
+        res.redirect("/Denuncias"); 
     } catch (err) {
         console.error("Erro ao registrar denúncia no MongoDB:", err);
         res.status(500).render("Reposts/denuncias", { 
