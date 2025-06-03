@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 
 
 app.use(session({
-    secret: process.env.SESSION_SECRET || "dialogaSegredo123", // Use variável de ambiente para o segredo!
+    secret: process.env.SESSION_SECRET , // Use variável de ambiente para o segredo!
     resave: false,
     saveUninitialized: false, // Não salvar sessões não inicializadas
     store: MongoStore.create({ 
@@ -55,7 +55,7 @@ app.use("/", diaryRoutes);
 app.use("/", reportRoutes);
 app.use('/', homeRoutes);
 
-const PORT = process.env.PORT || 3000; 
+const PORT = process.env.PORT; 
 app.listen(PORT, '0.0.0.0', () => { 
     console.log(`Servidor rodando na url http://localhost:${PORT}`);
 });
