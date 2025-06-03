@@ -9,7 +9,7 @@ router.get("/Denuncias", function(req, res){
     }
 
     const { username } = req.session;
-    res.render("Reports/Denuncias", {username: username, currentPage: 'report'})
+    res.render("Reports/denuncias", {username: username, currentPage: 'report'})
 });
 
 router.post('/reportController', reportController.Denunciar);
