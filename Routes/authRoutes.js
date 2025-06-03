@@ -6,15 +6,15 @@ require("../models/User")
 
 
 router.get("/", function(req,res) {
-    res.render("auth/index")
+    res.render("Auth/index")
 });
 
 router.get("/cadastre-se", function(req,res) {
-    res.render("auth/cadastro")
+    res.render("Auth/cadastro")
 });
 
 router.get("/recuperarSenha", function(req,res) {
-    res.render("auth/recuperacao")
+    res.render("Auth/recuperacao")
 });
 
 router.post('/login', authController.login);
