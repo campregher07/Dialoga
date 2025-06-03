@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const reportSchema = new mongoose.Schema({
     anonimo: {
-        type: Int16Array,
+        type: Int32Array,
         default: false
     },
     nome: {
