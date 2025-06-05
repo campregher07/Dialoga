@@ -6,7 +6,7 @@ exports.login = async (req, res) => {
     const { email, senha } = req.body;
 
     if (!email || !senha) {
-        return res.render("auth/index", { erroMessage: "Email e senha são obrigatórios.", username: "" });
+        return res.render("Auth/index", { erroMessage: "Email e senha são obrigatórios.", username: "" });
     }
 
     try {
@@ -14,7 +14,7 @@ exports.login = async (req, res) => {
 
         if (!user || !(await user.comparePassword(senha))) {
             // Usamos o método comparePassword que definimos no modelo User.js
-            return res.render("auth/index", { erroMessage: "Credenciais inválidas.", username: "" });
+            return res.render("Auth/index", { erroMessage: "Credenciais inválidas.", username: "" });
         }
 
 
@@ -24,7 +24,7 @@ exports.login = async (req, res) => {
 
     } catch (err) {
         console.error("Erro ao verificar login:", err);
-        return res.status(500).render("auth/index", { erroMessage: "Erro interno ao tentar fazer login.", username: "" });
+        return res.status(500).render("Auth/index", { erroMessage: "Erro interno ao tentar fazer login.", username: "" });
     }
 };
 
