@@ -107,10 +107,10 @@ document.querySelector('form').addEventListener('submit', function(e) {
 <% if (typeof erroMessage !== 'undefined' && erroMessage) { %>
 <script>
     Swal.fire({
-        icon: 'error',
-        title: 'Erro ao enviar denúncia',
+        icon: 'warning',
+        title: 'Campos obrigatórios!',
         text: '<%= erroMessage %>',
-        confirmButtonColor: '#d33'
+        confirmButtonColor: '#1F6494'
     });
 </script>
 <% } %>

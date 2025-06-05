@@ -8,7 +8,7 @@ exports.Denunciar = async (req, res) => {
     if (!ocorrido || ocorrido.trim() === '') {
         console.log("Preencha todos os campos");
         return res.render("Reports/denuncias", { 
-            erroMessage: "Preencha todos os campos", 
+            erroMessage: "Por favor, preencha todos os campos.", 
             username, 
             currentPage: "report" 
         });
