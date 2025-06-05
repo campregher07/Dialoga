@@ -10,3 +10,6 @@ garantindo que o ambiente seja seguro, respeitoso e livre de julgamentos Tela de
 Feedback para o Chatbot: Os profissionais poderiam fornecer feedback para a equipe de desenvolvimento do chatbot, 
 ajudando a aprimorar a inteligência artificial e garantir que o chatbot esteja oferecendo o suporte mais eficaz possível 
 Tela de acesso ao chatbot do usuário em vulnerabilidade.
+
+
+Frase motivacional Home

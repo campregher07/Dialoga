@@ -60,7 +60,7 @@ exports.recuperar = async (req, res) => {
     const { email, senha } = req.body;
 
     if (!email || !senha) {
-        return res.render("auth/cadastro", { erroMessage: "Todos os campos são obrigatórios." });
+        return res.render("auth/recuperacao", { erroMessage: "Todos os campos são obrigatórios." });
     }
 
     try {
@@ -68,7 +68,7 @@ exports.recuperar = async (req, res) => {
         
         if(!user){
             console.log("Endereço de email não encontrado!")
-            res.redirect("/")
+            return res.render("auth/recuperacao", { erroMessage: "Usuário não encontrado" });
         }
 
         user.senha = senha;
