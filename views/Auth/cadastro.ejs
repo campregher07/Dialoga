@@ -1,32 +1,57 @@
 <!DOCTYPE html>
-
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro</title>
-  <link rel="stylesheet" href="/css/pages/styleAuth.css">
+  <title>Dialoga - Cadastro</title>
   <link rel="stylesheet" href="/css/styleGlobal.css">
   <link rel="stylesheet" href="/css/styleComponents.css">
+  <link rel="stylesheet" href="/css/pages/styleAuth.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
-<body>
-  <div class="container">
-    <div class="logo"></div>
-    <div class="tabs">
-      <a href="/">Entrar</a>
-      <a href="#" class="active">Criar conta</a>
+<body class="auth-background">
+  <div class="auth-container">
+    <div class="auth-logo">
+      <img src="/img/dataVac logo ofc.png" alt="Dialoga">
     </div>
+    
+    <div class="auth-card">
+      <div class="tabs">
+        <a href="/">Entrar</a>
+        <a href="/cadastre-se" class="active">Criar conta</a>
+      </div>
 
-    <form method="post" action="/cadastrar">
-      <input type="text" name="nome" placeholder="Nome completo" required>
-      <input type="email" name="email" placeholder="Digite seu e-mail" required>
-      <input type="password" name="senha" placeholder="Crie uma senha" minlength="6" required>
-      <input type="submit" value="Cadastrar">
-    </form>
+      <form class="auth-form" method="post" action="/cadastrar">
+        <div class="form-group">
+          <label class="form-label">Nome completo</label>
+          <input type="text" class="form-input" name="nome" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <div class="input-icon-container">
+            <input type="email" class="form-input" name="email" required>
+            <span class="input-icon">@</span>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Senha</label>
+          <div class="input-icon-container">
+            <input type="password" class="form-input" name="senha" minlength="6" required>
+            <span class="input-icon">🔒</span>
+          </div>
+        </div>
 
-    <p style="font-size: 11px; margin-top: 20px;">
-      Ao criar uma conta, você concorda com nossos <a href="#">Termos de Serviço</a> e <a href="#">Política de Privacidade</a>.
-    </p>
+        <button type="submit" class="submit-button">Cadastrar</button>
+      </form>
+
+      <div class="auth-footer">
+        Ao criar uma conta, você concorda com nossos<br>
+        <a href="#">Termos de Serviço</a> e <a href="#">Política de Privacidade</a>.
+      </div>
+    </div>
   </div>
 </body>
 </html>
+

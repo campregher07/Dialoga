@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dialoga - Entrar</title>
+  <link rel="stylesheet" href="/css/pages/styleAuth.css">
+  <link rel="stylesheet" href="/css/styleGlobal.css">
+  <link rel="stylesheet" href="/css/styleComponents.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="auth-container">
+    <h1 class="auth-title">Dialoga</h1>
+    <p class="auth-subtitle">Entre na sua conta</p>
+    
+    <a href="cadastre-se">Cadastro</a>
+
+    <form class="auth-form" method="post" action="/login">
+
+
+      <div class="form-group">
+        <label class="form-label">Email </label>
+        <input type="text" class="form-input" name="email" required>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Senha</label>
+        <input type="password" class="form-input" name="senha" required>
+      </div>
+
+      <a href="/recuperarSenha" class="forgot-password">Esqueceu a senha?</a>
+
+      <button type="submit" class="submit-button">Entrar</button>
+    </form>
+
+    <div class="auth-footer">
+      Ao entrar ou criar uma conta, você concorda com nossos<br>
+      <a href="#">Termos de Serviço</a> e <a href="#">Política de Privacidade</a>.
+    </div>
+  </div>
+
+</body>
+</html>

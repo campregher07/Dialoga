@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro</title>
+  <link rel="stylesheet" href="/css/pages/styleAuth.css">
+  <link rel="stylesheet" href="/css/styleGlobal.css">
+  <link rel="stylesheet" href="/css/styleComponents.css">
+</head>
+<body>
+  <div class="container">
+    <div class="logo"></div>
+    <div class="tabs">
+      <a href="/">Entrar</a>
+      <a href="#" class="active">Criar conta</a>
+    </div>
+
+    <form method="post" action="/cadastrar">
+      <input type="text" name="nome" placeholder="Nome completo" required>
+      <input type="email" name="email" placeholder="Digite seu e-mail" required>
+      <input type="password" name="senha" placeholder="Crie uma senha" minlength="6" required>
+      <input type="submit" value="Cadastrar">
+    </form>
+
+    <p style="font-size: 11px; margin-top: 20px;">
+      Ao criar uma conta, você concorda com nossos <a href="#">Termos de Serviço</a> e <a href="#">Política de Privacidade</a>.
+    </p>
+  </div>
+</body>
+</html>
