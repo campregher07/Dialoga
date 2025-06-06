@@ -33,8 +33,8 @@ app.use(session({
         collectionName: "sessions" // Nome da coleção para guardar sessões
     }),
     cookie: {
-        maxAge: 1000 * 60 * 60 * 24 // Duração do cookie (ex: 1 dia)
-        // secure: process.env.NODE_ENV === "production" // Descomente isso em produção se usar HTTPS
+        maxAge: 1000 * 60 * 60 * 24 ,// Duração do cookie (ex: 1 dia)
+        secure: process.env.NODE_ENV === "production" // Descomente isso em produção se usar HTTPS
     }
 }));
 
@@ -49,11 +49,13 @@ const authRoutes = require("./Routes/authRoutes");
 const diaryRoutes = require("./Routes/diaryRoutes");
 const reportRoutes = require("./Routes/reportRoutes");
 const homeRoutes = require('./Routes/homeRoutes');
+const communityRoutes = require('./Routes/communityRoutes');
 
 app.use("/", authRoutes);
 app.use("/", diaryRoutes);
 app.use("/", reportRoutes);
 app.use('/', homeRoutes);
+app.use('/', communityRoutes);
 
 const PORT = process.env.PORT; 
 app.listen(PORT, '0.0.0.0', () => { 

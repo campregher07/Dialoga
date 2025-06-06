@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Comunidade</title>
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+
+    <form action="/Postar" method="POST">
+        <textarea name="texto" placeholder="Escreva algo..." rows="5" cols="40" required></textarea><br>
+        <button type="submit">Publicar</button>
+    </form>
+
+    <hr>
+
+    <section>
+        <h2>Posts Recentes</h2>
+        <% if (post && post.length > 0) { %>
+            <ul>
+                <% post.forEach(p => { %>
+                    <li>
+                        <p><%= p.texto %></p>
+                        <% if (p.createdAt) { %>
+                            <small><%= new Date(p.createdAt).toLocaleString('pt-BR') %></small>
+                        <% } %>
+                    </li>
+                    <hr>
+                <% }); %>
+            </ul>
+        <% } else { %>
+            <p>Nenhum post ainda.</p>
+        <% } %>
+    </section>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>
