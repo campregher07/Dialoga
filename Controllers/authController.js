@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const User = require('../models/User'); // ajuste o caminho se necessário
+const User = require('../models/User');
 
 
 exports.login = async (req, res) => {
