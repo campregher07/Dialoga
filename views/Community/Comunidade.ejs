@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Comunidade</title>
+    <link rel="stylesheet" href="css/styleGlobal.css">
+    <link rel="stylesheet" href="css/styleComponents.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <%- include('../partials/header') %>
@@ -15,25 +18,80 @@
 
     <hr>
 
-    <section>
-        <h2>Posts Recentes</h2>
+   <section>
+    <h2>Posts Recentes</h2>
+    <ul id="post-container">
         <% if (post && post.length > 0) { %>
-            <ul>
-                <% post.forEach(p => { %>
-                    <li>
-                        <p><%= p.texto %></p>
-                        <% if (p.createdAt) { %>
-                            <small><%= new Date(p.createdAt).toLocaleString('pt-BR') %></small>
-                        <% } %>
-                    </li>
-                    <hr>
-                <% }); %>
-            </ul>
+            <% post.forEach(p => { %>
+                <%- include('../partials/post', {
+                    texto: p.texto,
+                    createdAt: p.createdAt
+                }) %>
+            <% }) %>
         <% } else { %>
             <p>Nenhum post ainda.</p>
         <% } %>
-    </section>
+    </ul>
+
+    <div id="loading" style="display: none;">Carregando...</div>
+    <div id="sentinela"></div>
+</section>
+
 
     <%- include('../partials/footer') %>
+
+<script>
+let currentPage = 2; // Começa em 2 porque a página 1 já foi carregada no SSR
+let loading = false;
+let hasMore = true;
+
+const observer = new IntersectionObserver((entries) => {
+  if (entries[0].isIntersecting && !loading && hasMore) {
+    loadMorePosts();
+  }
+}, {
+  rootMargin: '200px'
+});
+
+observer.observe(document.getElementById('sentinela'));
+
+function loadMorePosts() {
+  loading = true;
+  document.getElementById('loading').style.display = 'block';
+
+  fetch(`/Comunidade?page=${currentPage}`, {
+    headers: {
+      'Accept': 'application/json'
+    }
+  })
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById('post-container');
+    data.posts.forEach(p => {
+      const li = document.createElement('li');
+      li.innerHTML = `<div class="post">
+        <p>${p.texto}</p>
+        <small>${new Date(p.createdAt).toLocaleString()}</small>
+      </div>`;
+      container.appendChild(li);
+    });
+
+    if (!data.hasMore || data.posts.length === 0) {
+      hasMore = false;
+      document.getElementById('loading').innerText = "Fim do conteúdo.";
+    } else {
+      currentPage++;
+      document.getElementById('loading').style.display = 'none';
+    }
+
+    loading = false;
+  })
+  .catch(err => {
+    console.error("Erro ao carregar mais posts:", err);
+    document.getElementById('loading').innerText = "Erro ao carregar posts.";
+    loading = false;
+  });
+}
+</script>
 </body>
 </html>

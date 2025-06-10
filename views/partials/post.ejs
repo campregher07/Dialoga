@@ -1,0 +1,7 @@
+<li class="post">
+    <p><%= texto %></p>
+    <% if (createdAt) { %>
+        <small><%= new Date(createdAt).toLocaleString('pt-BR') %></small>
+    <% } %>
+</li>
+<hr>
