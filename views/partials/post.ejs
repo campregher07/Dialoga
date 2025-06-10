@@ -1,7 +1,7 @@
 <li class="post">
     <p><%= texto %></p>
     <% if (createdAt) { %>
-        <small><%= new Date(createdAt).toLocaleString('pt-BR') %></small>
+        <small><%= new Date(createdAt).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }) %></small>
     <% } %>
 </li>
 <hr>
