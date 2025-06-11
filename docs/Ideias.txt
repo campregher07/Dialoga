@@ -13,3 +13,5 @@ Tela de acesso ao chatbot do usuário em vulnerabilidade.
 
 
 Frase motivacional Home
+
+paginação no diario

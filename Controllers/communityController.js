@@ -31,28 +31,16 @@ exports.ler = async (req, res) => {
     }
 
     const { username, userId } = req.session;
-    const page = parseInt(req.query.page) || 1;
-    const limit = 10;
-    const skip = (page - 1) * limit;
 
     try {
-        const totalPosts = await Post.countDocuments();
-        const resultados = await Post.find().sort({ date: -1 }).skip(skip).limit(limit);
+        const resultados = await Post.find().sort({ date: -1 });
 
-        const hasMore = skip + resultados.length < totalPosts;
-
-        if (req.headers.accept && req.headers.accept.includes('application/json')) {
-            return res.json({ posts: resultados, hasMore });
-        }
         res.render("Community/Comunidade", { 
             username,
             userId,
             post: resultados, 
-            currentPage: "community",
-            hasMore,
-            currentPageNumber: page
+            currentPage: "community" 
         });
-
 
     } catch (error) {
         console.error("Erro ao buscar posts:", error);
@@ -61,9 +49,7 @@ exports.ler = async (req, res) => {
             userId,
             post: [], 
             currentPage: "community",
-            erroMessage: "Erro ao carregar os posts.",
-            hasMore,
-            currentPageNumber: page
+            erroMessage: "Erro ao carregar os posts."
         }); 
     }
 };

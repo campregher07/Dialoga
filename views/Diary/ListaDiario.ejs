@@ -43,7 +43,7 @@
                     <div class="diary-card mood-<%= diario.humor%>">
                         <div class="mood-circle"></div> 
                         <p class="diary-day"><%= diario.dayOfWeek %></p>
-                        <p class="diary-date"><%= diario.date.toLocaleDateString('pt-BR') %></p>
+                        <p class="diary-date"><%= diario.date.toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }) %></p>
                         <span class="diary-content" data-full-text="<%= diario.texto %>"><%= (() => { const t = diario.texto.trim(); const p = t.split(/\s+/); return p.length > 30 ? p.slice(0, Math.floor(p.length*0.05)).join(' ') + '...' : t; })() %></span>
                         <% if (diario.texto.trim().split(/\s+/).length > 30) { %>
                             <button class="toggle-texto" >Mostrar mais</button>
