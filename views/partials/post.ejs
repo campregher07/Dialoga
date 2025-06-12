@@ -1,7 +1,40 @@
-<li class="post">
+<li>
     <p><%= texto %></p>
+
     <% if (createdAt) { %>
-        <small><%= new Date(createdAt).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }) %></small>
+        <small><%= new Date(createdAt).toLocaleString('pt-BR', { timeZone: "America/Sao_Paulo" }) %></small>
     <% } %>
+
+    <!-- Lista de comentários já existentes -->
+    <ul class="comentarios" id="comentarios-<%= _id %>">
+        <% if (comentarios && comentarios.length > 0) { %>
+            <% comentarios.forEach(c => { %>
+                <li>
+                    <strong>Anônimo:</strong> <%= c.texto %>
+                    <br><small><%= new Date(c.createdAt).toLocaleString('pt-BR', { timeZone: "America/Sao_Paulo" }) %></small>
+                </li>
+            <% }) %>
+        <% } %>
+    </ul>
+
+    <!-- Formulário para novo comentário -->
+    <form class="form-comentario" data-post-id="<%= _id %>">
+        <input type="text" name="texto" placeholder="Comente algo..." required>
+        <button type="submit">Enviar</button>
+    </form>
+
+
+    <button 
+        class="like-btn"
+        data-post-id="<%= _id %>"
+        data-curtiu="<%= userCurtiu %>">
+        <% if (userCurtiu) { %>
+            <i class="fas fa-heart" style="color: red;"></i>
+        <% } else { %>
+            <i class="far fa-heart"></i>
+        <% } %>
+        <span class="like-count"><%= totalLikes %></span>
+    </button>
+
+    <hr>
 </li>
-<hr>

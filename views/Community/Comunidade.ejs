@@ -23,10 +23,7 @@
     <ul>
         <% if (post && post.length > 0) { %>
             <% post.forEach(p => { %>
-                <%- include('../partials/post', {
-                    texto: p.texto,
-                    createdAt: p.createdAt
-                }) %>
+                <%- include('../partials/post', p) %>
             <% }) %>
         <% } else { %>
             <p>Nenhum post ainda.</p>
@@ -37,6 +34,92 @@
 
 
     <%- include('../partials/footer') %>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.like-btn');
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const postId = btn.dataset.postId;
+
+                try {
+                    const res = await fetch('/curtir', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ postId })
+                    });
+
+                    if (res.ok) {
+                        const data = await res.json();
+                        const icon = btn.querySelector('i');
+                        const countSpan = btn.querySelector('.like-count');
+
+                        if (data.curtiu) {
+                            icon.classList.remove('far');
+                            icon.classList.add('fas');
+                            icon.style.color = 'red';
+                        } else {
+                            icon.classList.remove('fas');
+                            icon.classList.add('far');
+                            icon.style.color = '';
+                        }
+
+                        countSpan.textContent = data.totalLikes;
+                        btn.dataset.curtiu = data.curtiu;
+                    }
+
+                } catch (error) {
+                    console.error('Erro ao alternar curtida:', error);
+                }
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const forms = document.querySelectorAll('.form-comentario');
+
+        forms.forEach(form => {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const postId = form.dataset.postId;
+                const input = form.querySelector('input[name="texto"]');
+                const texto = input.value.trim();
+
+                if (texto === "") return;
+
+                try {
+                    const res = await fetch('/comentar', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ postId, texto })
+                    });
+
+                    const data = await res.json();
+
+                    if (data.sucesso) {
+                        const lista = document.getElementById(`comentarios-${postId}`);
+                        const novo = document.createElement('li');
+                        novo.innerHTML = `<strong>${data.comentario.username}:</strong> ${data.comentario.texto} <br><small>${data.comentario.createdAt}</small>`;
+                        lista.appendChild(novo);
+
+                        input.value = "";
+                    }
+
+                } catch (error) {
+                    console.error('Erro ao comentar:', error);
+                }
+            });
+        });
+    });
+
+</script>
 
 </body>
 </html>
