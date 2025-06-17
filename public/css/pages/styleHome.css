@@ -1,71 +1,426 @@
+/* Estilos da página inicial modernizada */
+
 .home-content {
-    max-width: 500px;
-    margin: 40px auto 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Seção de Boas-vindas */
+.welcome-section {
     text-align: center;
 }
 
-.welcome-section {
-    margin-bottom: 30px;
+.welcome-card {
+    background: linear-gradient(135deg, var(--primary-blue), #2980b9);
+    color: white;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(31, 100, 148, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    border-radius: 50%;
 }
 
 .welcome-title {
-    font-size: 2.2rem;
-    color: var(--primary-blue);
-    margin-bottom: 10px;
+    font-size: 2.5rem;
     font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.welcome-text {
+.welcome-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    opacity: 0.9;
+}
+
+.motivational-quote {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.quote-icon {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    opacity: 0.7;
+}
+
+.quote-text {
     font-size: 1.1rem;
-    color: var(--medium-grey);
+    font-style: italic;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Seções */
+.section-title {
+    font-size: 1.8rem;
+    color: var(--primary-blue);
+    margin-bottom: 20px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Seleção de Humor */
+.mood-section {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow-medium);
 }
 
 .emotion-selection-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 20px;
     justify-items: center;
-    margin-bottom: 25px;
-    padding: 20px;
-    background-color: var(--white);
-    border-radius: var(--border-radius);
+}
+
+.emotion-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.emotion-circle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    opacity: 0.8;
+    border-radius: inherit;
+    z-index: 1;
+}
+
+.emotion-circle i {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+    color: #333;
+    position: relative;
+    z-index: 2;
+}
+
+.emotion-circle span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+    position: relative;
+    z-index: 2;
+}
+
+.emotion-circle:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border-color: var(--primary-blue);
+}
+
+.emotion-circle.selected {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(31, 100, 148, 0.3);
+}
+
+/* Acesso Rápido */
+.quick-access-section {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
     box-shadow: var(--card-shadow-medium);
 }
 
+.quick-access-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.quick-access-card {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    padding: 25px;
+    border-radius: 15px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.quick-access-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    border-color: var(--primary-blue);
+}
+
+.card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+    color: white;
+}
+
+.diary-card .card-icon {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+}
+
+.community-card .card-icon {
+    background: linear-gradient(135deg, #4ecdc4, #44a08d);
+}
+
+.chat-card .card-icon {
+    background: linear-gradient(135deg, #45b7d1, #96c93d);
+}
+
+.meditation-card .card-icon {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+}
+
+.quick-access-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+.quick-access-card p {
+    font-size: 0.95rem;
+    color: var(--medium-grey);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Estatísticas */
+.stats-section {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow-medium);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    margin: 0;
+    opacity: 0.9;
+}
+
+/* Bem-estar */
+.wellness-section {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow-medium);
+}
+
+.wellness-card {
+    background: linear-gradient(135deg, #ffecd2, #fcb69f);
+    padding: 25px;
+    border-radius: 15px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.wellness-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: #d35400;
+    flex-shrink: 0;
+}
+
+.wellness-content h3 {
+    font-size: 1.4rem;
+    color: #d35400;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.wellness-content p {
+    font-size: 1rem;
+    color: #8b4513;
+    margin: 0;
+    line-height: 1.6;
+}
+.mood-saved {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    color: #4CAF50;
+    font-size: 1.2em;
+    background: white;
+    border-radius: 50%;
+}
+
+.mood-error {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    color: #f44336;
+    font-size: 1.2em;
+    background: white;
+    border-radius: 50%;
+}
+
+.emotion-circle {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Responsividade */
 @media (max-width: 768px) {
     .home-content {
-        margin: 20px auto 70px;
+        padding: 15px;
+        gap: 20px;
+    }
+
+    .welcome-card {
+        padding: 30px 20px;
+    }
+
+    .welcome-title {
+        font-size: 2rem;
+    }
+
+    .welcome-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .emotion-selection-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+
+    .emotion-circle {
+        width: 80px;
+        height: 80px;
+    }
+
+    .emotion-circle i {
+        font-size: 1.5rem;
+    }
+
+    .emotion-circle span {
+        font-size: 0.8rem;
+    }
+
+    .quick-access-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .quick-access-card {
+        padding: 20px 15px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .wellness-card {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-content {
+        padding: 10px;
     }
 
     .welcome-title {
         font-size: 1.8rem;
     }
 
-    .welcome-text {
-        font-size: 1rem;
+    .emotion-selection-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .emotion-selection-grid {
-        gap: 12px;
-        padding: 15px;
+    .quick-access-grid {
+        grid-template-columns: 1fr;
     }
 }
 
-@media (max-width: 480px) {
-    .home-content {
-        padding: 0 15px;
-    }
-
-    .welcome-title {
-        font-size: 1.6rem;
-    }
-
-    .welcome-text {
-        font-size: 0.95rem;
-    }
-
-    .emotion-selection-grid {
-        gap: 10px;
-        padding: 10px;
-    }
-}
