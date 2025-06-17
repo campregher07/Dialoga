@@ -5,14 +5,23 @@
         <small><%= new Date(createdAt).toLocaleString('pt-BR', { timeZone: "America/Sao_Paulo" }) %></small>
     <% } %>
 
-    <!-- Botão para carregar comentários -->
-    <button 
-        class="load-comments-btn" 
-        data-post-id="<%= _id %>" 
-        onclick="loadComments('<%= _id %>')">
-        Ver comentários
-    </button>
-    
+    <!-- Botões para carregar e fechar comentários -->
+    <div style="margin: 10px 0;">
+        <button 
+            class="load-comments-btn" 
+            data-post-id="<%= _id %>" 
+            onclick="loadComments('<%= _id %>')">
+            Ver comentários
+        </button>
+        
+        <button 
+            class="close-comments-btn" 
+            data-post-id="<%= _id %>" 
+            onclick="closeComments('<%= _id %>')"
+            style="display: none;">
+            Fechar comentários
+        </button>
+    </div>
 
     <!-- Lista de comentários (inicialmente oculta) -->
     <ul class="comentarios hidden" id="comentarios-<%= _id %>">
@@ -26,7 +35,7 @@
             <input type="checkbox" name="anonimo" id="anonimo-<%= _id %>">
             Comentar como anônimo
         </label>
-        <button type="submit">Enviar</button>
+        <button type="submit">Enviar Comentário</button>
     </form>
 
     <button 

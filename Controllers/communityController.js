@@ -142,16 +142,24 @@ exports.toggleLike = async (req, res) => {
 
 exports.comentar = async (req, res) => {
     const { userId, username } = req.session;
-    const { postId, texto } = req.body;
+    const { postId, texto, anonimo } = req.body;
 
     try {
-        const novoComentario = await Comment.create({ postId, userId, username, texto });
+        // Se anonimo for true, usar "Anônimo" como username
+        const nomeExibicao = anonimo ? "Anônimo" : username;
+        
+        const novoComentario = await Comment.create({ 
+            postId, 
+            userId, 
+            username: nomeExibicao, 
+            texto 
+        });
 
         res.json({
             sucesso: true,
             comentario: {
                 _id: novoComentario._id,
-                username: username,
+                username: nomeExibicao,
                 texto: novoComentario.texto,
                 createdAt: new Date(novoComentario.createdAt).toLocaleString('pt-BR')
             }
@@ -161,4 +169,3 @@ exports.comentar = async (req, res) => {
         res.status(500).json({ sucesso: false, erro: 'Erro ao comentar.' });
     }
 };
-
