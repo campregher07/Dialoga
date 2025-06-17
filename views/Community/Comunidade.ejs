@@ -6,10 +6,69 @@
     <link rel="stylesheet" href="css/styleGlobal.css">
     <link rel="stylesheet" href="css/styleComponents.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            gap: 10px;
+        }
+        
+        .pagination a, .pagination span {
+            padding: 8px 12px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            color: #333;
+        }
+        
+        .pagination a:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .pagination .current {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        
+        .pagination .disabled {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .load-comments-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 0;
+            font-size: 12px;
+        }
+        
+        .load-comments-btn:hover {
+            background-color: #218838;
+        }
+        
+        .load-comments-btn:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+        
+        .comentarios {
+            margin-top: 10px;
+        }
+        
+        .comentarios.hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <%- include('../partials/header') %>
-
 
     <form action="/Postar" method="POST">
         <textarea name="texto" placeholder="Escreva algo..." rows="5" cols="40" required></textarea><br>
@@ -18,23 +77,45 @@
 
     <hr>
 
-   <section>
-    <h2>Posts Recentes</h2>
-    <ul>
-        <% if (post && post.length > 0) { %>
-            <% post.forEach(p => { %>
-                <%- include('../partials/post', p) %>
-            <% }) %>
-        <% } else { %>
-            <p>Nenhum post ainda.</p>
+    <section>
+        <h2>Posts Recentes</h2>
+        <ul>
+            <% if (post && post.length > 0) { %>
+                <% post.forEach(p => { %>
+                    <%- include('../partials/post', p) %>
+                <% }) %>
+            <% } else { %>
+                <p>Nenhum post ainda.</p>
+            <% } %>
+        </ul>
+
+        <!-- Controles de Paginação -->
+        <% if (typeof pagination !== 'undefined' && pagination.totalPages > 1) { %>
+            <div class="pagination">
+                <% if (pagination.hasPrev) { %>
+                    <a href="/Comunidade?page=<%= pagination.prevPage %>">&laquo; Anterior</a>
+                <% } else { %>
+                    <span class="disabled">&laquo; Anterior</span>
+                <% } %>
+
+                <% for (let i = 1; i <= pagination.totalPages; i++) { %>
+                    <% if (i === pagination.currentPage) { %>
+                        <span class="current"><%= i %></span>
+                    <% } else { %>
+                        <a href="/Comunidade?page=<%= i %>"><%= i %></a>
+                    <% } %>
+                <% } %>
+
+                <% if (pagination.hasNext) { %>
+                    <a href="/Comunidade?page=<%= pagination.nextPage %>">Próximo &raquo;</a>
+                <% } else { %>
+                    <span class="disabled">Próximo &raquo;</span>
+                <% } %>
+            </div>
         <% } %>
-    </ul>
-
-</section>
-
+    </section>
 
     <%- include('../partials/footer') %>
-
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -119,7 +200,56 @@
         });
     });
 
+    // Função para carregar comentários sob demanda
+    async function loadComments(postId) {
+        const btn = document.querySelector(`[data-post-id="${postId}"].load-comments-btn`);
+        const comentariosDiv = document.getElementById(`comentarios-${postId}`);
+        
+        btn.disabled = true;
+        btn.textContent = 'Carregando...';
+
+        try {
+            const res = await fetch(`/comentarios/${postId}`);
+            const data = await res.json();
+
+            if (data.sucesso) {
+                comentariosDiv.innerHTML = '';
+                
+                if (data.comentarios.length > 0) {
+                    data.comentarios.forEach(c => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<strong>${c.username}:</strong> ${c.texto} <br><small>${new Date(c.createdAt).toLocaleString('pt-BR', { timeZone: "America/Sao_Paulo" })}</small>`;
+                        comentariosDiv.appendChild(li);
+                    });
+                } else {
+                    comentariosDiv.innerHTML = '<li>Nenhum comentário ainda.</li>';
+                }
+                
+                comentariosDiv.classList.remove('hidden');
+                btn.style.display = 'none';
+            }
+
+        } catch (error) {
+            console.error('Erro ao carregar comentários:', error);
+            btn.textContent = 'Erro ao carregar';
+        }
+    }
+
+    function toggleComments(value) {
+        const fields = document.getElementById('commentFields');
+        if (value === "1") {
+            fields.style.display = 'block';
+        } else {
+            fields.style.display = 'none';
+            document.getElementById('carSpaces').value = '';
+            document.getElementById('numSpaces').value = '';
+            document.getElementById('plate').value = '';
+            document.getElementById('brand').value = '';
+            document.getElementById('model').value = '';
+        }
+    }
 </script>
 
 </body>
 </html>
+

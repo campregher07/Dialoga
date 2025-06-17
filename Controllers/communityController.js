@@ -34,28 +34,41 @@ exports.ler = async (req, res) => {
     }
 
     const { username, userId } = req.session;
+    const page = parseInt(req.query.page) || 1;
+    const limit = 10;
+    const skip = (page - 1) * limit;
 
     try {
-        const posts = await Post.find().sort({ createdAt: -1 }).lean();
+        // Contar total de posts para calcular páginas
+        const totalPosts = await Post.countDocuments();
+        const totalPages = Math.ceil(totalPosts / limit);
 
+        // Buscar posts com paginação
+        const posts = await Post.find()
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit)
+            .lean();
+
+        // Adicionar informações de likes para cada post
         for (let post of posts) {
-        post.totalLikes = await Like.countDocuments({ postId: post._id });
-        post.userCurtiu = await Like.exists({ postId: post._id, userId: req.session.userId });
+            post.totalLikes = await Like.countDocuments({ postId: post._id });
+            post.userCurtiu = await Like.exists({ postId: post._id, userId: req.session.userId });
         }
-
-        const comentarios = await Comment.find().sort({ createdAt: 1 }).lean();
-        const postsComComentarios = posts.map(post => {
-            post.comentarios = comentarios.filter(c => c.postId.toString() === post._id.toString());
-            return post;
-        });
 
         res.render("Community/Comunidade", { 
             userId,
-            post: postsComComentarios,
-            comentarios: comentarios,  
-            currentPage: "community"
+            post: posts,
+            currentPage: "community",
+            pagination: {
+                currentPage: page,
+                totalPages: totalPages,
+                hasNext: page < totalPages,
+                hasPrev: page > 1,
+                nextPage: page + 1,
+                prevPage: page - 1
+            }
         });
-
 
     } catch (error) {
         console.error("Erro ao buscar posts:", error);
@@ -64,8 +77,37 @@ exports.ler = async (req, res) => {
             userId,
             post: [], 
             currentPage: "community",
-            erroMessage: "Erro ao carregar os posts."
+            erroMessage: "Erro ao carregar os posts.",
+            pagination: {
+                currentPage: 1,
+                totalPages: 1,
+                hasNext: false,
+                hasPrev: false
+            }
         }); 
+    }
+};
+
+// Nova função para buscar comentários de um post específico
+exports.buscarComentarios = async (req, res) => {
+    const { postId } = req.params;
+
+    try {
+        const comentarios = await Comment.find({ postId })
+            .sort({ createdAt: 1 })
+            .lean();
+
+        res.json({
+            sucesso: true,
+            comentarios: comentarios
+        });
+
+    } catch (error) {
+        console.error("Erro ao buscar comentários:", error);
+        res.status(500).json({ 
+            sucesso: false, 
+            erro: "Erro ao carregar comentários." 
+        });
     }
 };
 
@@ -108,7 +150,8 @@ exports.comentar = async (req, res) => {
         res.json({
             sucesso: true,
             comentario: {
-                username: novoComentario.username,
+                _id: novoComentario._id,
+                username: username,
                 texto: novoComentario.texto,
                 createdAt: new Date(novoComentario.createdAt).toLocaleString('pt-BR')
             }
@@ -118,3 +161,4 @@ exports.comentar = async (req, res) => {
         res.status(500).json({ sucesso: false, erro: 'Erro ao comentar.' });
     }
 };
+
