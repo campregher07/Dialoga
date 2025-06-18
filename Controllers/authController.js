@@ -33,13 +33,13 @@ exports.cadastrar  = async (req, res) => {
     const { nome, email, senha } = req.body;
 
     if (!nome || !email || !senha) {
-        return res.render("auth/cadastro", { erroMessage: "Todos os campos são obrigatórios." });
+        return res.render("Auth/cadastro", { erroMessage: "Todos os campos são obrigatórios." });
     }
 
     try {
         const existingUser = await User.findOne({ email: email.toLowerCase() });
         if (existingUser) {
-            return res.render("auth/cadastro", { erroMessage: "Este email já está cadastrado." });
+            return res.render("Auth/cadastro", { erroMessage: "Este email já está cadastrado." });
         }
 
         const newUser = new User({ nome, email, senha });
@@ -52,7 +52,7 @@ exports.cadastrar  = async (req, res) => {
 
     } catch (err) {
         console.error("Erro ao inserir usuário no MongoDB:", err);
-        res.status(500).render("auth/cadastro", { erroMessage: "Erro interno ao cadastrar usuário." });
+        res.status(500).render("Auth/cadastro", { erroMessage: "Erro interno ao cadastrar usuário." });
     }
 };
 
