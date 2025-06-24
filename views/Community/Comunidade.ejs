@@ -2,222 +2,270 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Comunidade</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidade | Dialoga</title>
     <link rel="stylesheet" href="css/styleGlobal.css">
     <link rel="stylesheet" href="css/styleComponents.css">
     <link rel="stylesheet" href="css/pages/styleCommunity.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-    </style>
 </head>
-<body>
+<body class="community-page">
     <%- include('../partials/header') %>
 
-<form action="/Postar" method="POST">
-    <textarea name="texto" placeholder="Compartilhe seus pensamentos de forma anônima…" rows="5" required></textarea>
-    <p style="margin-top: 10px; font-size: 12px; color: #666;">
-        Todas as publicações são anônimas e passam por moderação.
-    </p>
-    <button type="submit"><i class="fas fa-paper-plane"></i></button>
-</form>
+    <div class="container community-content">
+        <!-- Seção de Boas-vindas -->
+        <div class="welcome-section">
+            <div class="welcome-card">
+                <h1 class="welcome-title">Comunidade Dialoga</h1>
+                <p class="welcome-subtitle">Compartilhe seus pensamentos e conecte-se com outras pessoas</p>
+            </div>
+        </div>
 
+        <!-- Formulário de Postagem -->
+        <div class="post-form-section">
+            <div class="post-form-card">
+                <h2 class="section-title">
+                    <i class="fas fa-edit"></i>
+                    Compartilhe seus pensamentos
+                </h2>
+                <form action="/Postar" method="POST" class="post-form">
+                    <div class="form-group">
+                        <textarea name="texto" placeholder="Compartilhe seus pensamentos de forma anônima…" rows="4" required></textarea>
+                    </div>
+                    <div class="form-footer">
+                        <p class="privacy-note">
+                            <i class="fas fa-shield-alt"></i>
+                            Todas as publicações são anônimas e passam por moderação.
+                        </p>
+                        <button type="submit" class="post-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            Publicar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-    <hr>
-
-    <section>
-        <h2>Posts Recentes</h2>
-        <ul>
-            <% if (post && post.length > 0) { %>
-                <% post.forEach(p => { %>
-                    <%- include('../partials/post', p) %>
-                <% }) %>
-            <% } else { %>
-                <p>Nenhum post ainda.</p>
-            <% } %>
-        </ul>
-
-        <!-- Controles de Paginação -->
-        <% if (typeof pagination !== 'undefined' && pagination.totalPages > 1) { %>
-            <div class="pagination">
-                <% if (pagination.hasPrev) { %>
-                    <a href="/Comunidade?page=<%= pagination.prevPage %>">&laquo; Anterior</a>
+        <!-- Posts Recentes -->
+        <div class="posts-section">
+            <h2 class="section-title">
+                <i class="fas fa-comments"></i>
+                Posts Recentes
+            </h2>
+            
+            <div class="posts-container">
+                <% if (post && post.length > 0) { %>
+                    <% post.forEach(p => { %>
+                        <div class="post-card">
+                            <%- include('../partials/post', p) %>
+                        </div>
+                    <% }) %>
                 <% } else { %>
-                    <span class="disabled">&laquo; Anterior</span>
-                <% } %>
-
-                <% for (let i = 1; i <= pagination.totalPages; i++) { %>
-                    <% if (i === pagination.currentPage) { %>
-                        <span class="current"><%= i %></span>
-                    <% } else { %>
-                        <a href="/Comunidade?page=<%= i %>"><%= i %></a>
-                    <% } %>
-                <% } %>
-
-                <% if (pagination.hasNext) { %>
-                    <a href="/Comunidade?page=<%= pagination.nextPage %>">Próximo &raquo;</a>
-                <% } else { %>
-                    <span class="disabled">Próximo &raquo;</span>
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Nenhum post ainda</h3>
+                        <p>Seja o primeiro a compartilhar seus pensamentos com a comunidade!</p>
+                    </div>
                 <% } %>
             </div>
-        <% } %>
-    </section>
+
+            <!-- Controles de Paginação -->
+            <% if (typeof pagination !== 'undefined' && pagination.totalPages > 1) { %>
+                <div class="pagination-section">
+                    <div class="pagination">
+                        <% if (pagination.hasPrev) { %>
+                            <a href="/Comunidade?page=<%= pagination.prevPage %>" class="pagination-btn">
+                                <i class="fas fa-chevron-left"></i>
+                                Anterior
+                            </a>
+                        <% } else { %>
+                            <span class="pagination-btn disabled">
+                                <i class="fas fa-chevron-left"></i>
+                                Anterior
+                            </span>
+                        <% } %>
+
+                        <div class="pagination-numbers">
+                            <% for (let i = 1; i <= pagination.totalPages; i++) { %>
+                                <% if (i === pagination.currentPage) { %>
+                                    <span class="pagination-number current"><%= i %></span>
+                                <% } else { %>
+                                    <a href="/Comunidade?page=<%= i %>" class="pagination-number"><%= i %></a>
+                                <% } %>
+                            <% } %>
+                        </div>
+
+                        <% if (pagination.hasNext) { %>
+                            <a href="/Comunidade?page=<%= pagination.nextPage %>" class="pagination-btn">
+                                Próximo
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        <% } else { %>
+                            <span class="pagination-btn disabled">
+                                Próximo
+                                <i class="fas fa-chevron-right"></i>
+                            </span>
+                        <% } %>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
 
     <%- include('../partials/footer') %>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const buttons = document.querySelectorAll('.like-btn');
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animação de entrada para os cards
+            const cards = document.querySelectorAll('.post-card, .post-form-card, .welcome-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
 
-        buttons.forEach(btn => {
-            btn.addEventListener('click', async () => {
-                const postId = btn.dataset.postId;
+            // Funcionalidade de curtidas
+            const buttons = document.querySelectorAll('.like-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const postId = btn.dataset.postId;
 
-                try {
-                    const res = await fetch('/curtir', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ postId })
-                    });
+                    try {
+                        const res = await fetch('/curtir', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ postId })
+                        });
 
-                    if (res.ok) {
-                        const data = await res.json();
-                        const icon = btn.querySelector('i');
-                        const countSpan = btn.querySelector('.like-count');
+                        if (res.ok) {
+                            const data = await res.json();
+                            const icon = btn.querySelector('i');
+                            const countSpan = btn.querySelector('.like-count');
 
-                        if (data.curtiu) {
-                            icon.classList.remove('far');
-                            icon.classList.add('fas');
-                            icon.style.color = 'red';
-                        } else {
-                            icon.classList.remove('fas');
-                            icon.classList.add('far');
-                            icon.style.color = '';
+                            if (data.curtiu) {
+                                icon.classList.remove('far');
+                                icon.classList.add('fas');
+                                btn.classList.add('liked');
+                            } else {
+                                icon.classList.remove('fas');
+                                icon.classList.add('far');
+                                btn.classList.remove('liked');
+                            }
+
+                            countSpan.textContent = data.totalLikes;
+                            btn.dataset.curtiu = data.curtiu;
                         }
 
-                        countSpan.textContent = data.totalLikes;
-                        btn.dataset.curtiu = data.curtiu;
+                    } catch (error) {
+                        console.error('Erro ao alternar curtida:', error);
                     }
+                });
+            });
 
-                } catch (error) {
-                    console.error('Erro ao alternar curtida:', error);
-                }
+            // Funcionalidade de comentários
+            const forms = document.querySelectorAll('.form-comentario');
+            forms.forEach(form => {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    const postId = form.dataset.postId;
+                    const input = form.querySelector('input[name="texto"]');
+                    const checkbox = form.querySelector('input[name="anonimo"]');
+                    const texto = input.value.trim();
+                    const anonimo = checkbox.checked;
+
+                    if (texto === "") return;
+
+                    try {
+                        const res = await fetch('/comentar', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ postId, texto, anonimo })
+                        });
+
+                        const data = await res.json();
+
+                        if (data.sucesso) {
+                            const lista = document.getElementById(`comentarios-${postId}`);
+                            const novo = document.createElement('li');
+                            novo.innerHTML = `<strong>${data.comentario.username}:</strong> ${data.comentario.texto} <br><small>${data.comentario.createdAt}</small>`;
+                            lista.appendChild(novo);
+
+                            input.value = "";
+                            checkbox.checked = false;
+                        }
+
+                    } catch (error) {
+                        console.error('Erro ao comentar:', error);
+                    }
+                });
             });
         });
-    });
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const forms = document.querySelectorAll('.form-comentario');
+        // Função para carregar comentários sob demanda
+        async function loadComments(postId) {
+            const btn = document.querySelector(`[data-post-id="${postId}"].load-comments-btn`);
+            const comentariosDiv = document.getElementById(`comentarios-${postId}`);
+            
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Carregando...';
 
-        forms.forEach(form => {
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
+            try {
+                const res = await fetch(`/comentarios/${postId}`);
+                const data = await res.json();
 
-                const postId = form.dataset.postId;
-                const input = form.querySelector('input[name="texto"]');
-                const checkbox = form.querySelector('input[name="anonimo"]');
-                const texto = input.value.trim();
-                const anonimo = checkbox.checked;
-
-                if (texto === "") return;
-
-                try {
-                    const res = await fetch('/comentar', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ postId, texto, anonimo })
-                    });
-
-                    const data = await res.json();
-
-                    if (data.sucesso) {
-                        const lista = document.getElementById(`comentarios-${postId}`);
-                        const novo = document.createElement('li');
-                        novo.innerHTML = `<strong>${data.comentario.username}:</strong> ${data.comentario.texto} <br><small>${data.comentario.createdAt}</small>`;
-                        lista.appendChild(novo);
-
-                        input.value = "";
-                        checkbox.checked = false;
+                if (data.sucesso) {
+                    comentariosDiv.innerHTML = '';
+                    
+                    if (data.comentarios.length > 0) {
+                        data.comentarios.forEach(c => {
+                            const li = document.createElement('li');
+                            li.innerHTML = `<strong>${c.username}:</strong> ${c.texto} <br><small>${new Date(c.createdAt).toLocaleString('pt-BR', { timeZone: "America/Sao_Paulo" })}</small>`;
+                            comentariosDiv.appendChild(li);
+                        });
+                    } else {
+                        comentariosDiv.innerHTML = '<li>Nenhum comentário ainda.</li>';
                     }
-
-                } catch (error) {
-                    console.error('Erro ao comentar:', error);
+                    
+                    comentariosDiv.classList.remove('hidden');
+                    btn.style.display = 'none';
+                    
+                    // Mostrar botão de fechar comentários
+                    const closeBtn = document.querySelector(`[data-post-id="${postId}"].close-comments-btn`);
+                    closeBtn.style.display = 'inline-block';
                 }
-            });
-        });
-    });
 
-    // Função para carregar comentários sob demanda
-    async function loadComments(postId) {
-        const btn = document.querySelector(`[data-post-id="${postId}"].load-comments-btn`);
-        const comentariosDiv = document.getElementById(`comentarios-${postId}`);
-        
-        btn.disabled = true;
-        btn.textContent = 'Carregando...';
-
-        try {
-            const res = await fetch(`/comentarios/${postId}`);
-            const data = await res.json();
-
-            if (data.sucesso) {
-                comentariosDiv.innerHTML = '';
-                
-                if (data.comentarios.length > 0) {
-                    data.comentarios.forEach(c => {
-                        const li = document.createElement('li');
-                        li.innerHTML = `<strong>${c.username}:</strong> ${c.texto} <br><small>${new Date(c.createdAt).toLocaleString('pt-BR', { timeZone: "America/Sao_Paulo" })}</small>`;
-                        comentariosDiv.appendChild(li);
-                    });
-                } else {
-                    comentariosDiv.innerHTML = '<li>Nenhum comentário ainda.</li>';
-                }
-                
-                comentariosDiv.classList.remove('hidden');
-                btn.style.display = 'none';
-                
-                // Mostrar botão de fechar comentários
-                const closeBtn = document.querySelector(`[data-post-id="${postId}"].close-comments-btn`);
-                closeBtn.style.display = 'inline-block';
+            } catch (error) {
+                console.error('Erro ao carregar comentários:', error);
+                btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Erro ao carregar';
             }
-
-        } catch (error) {
-            console.error('Erro ao carregar comentários:', error);
-            btn.textContent = 'Erro ao carregar';
         }
-    }
 
-    // Função para fechar comentários
-    function closeComments(postId) {
-        const comentariosDiv = document.getElementById(`comentarios-${postId}`);
-        const loadBtn = document.querySelector(`[data-post-id="${postId}"].load-comments-btn`);
-        const closeBtn = document.querySelector(`[data-post-id="${postId}"].close-comments-btn`);
-        
-        comentariosDiv.classList.add('hidden');
-        loadBtn.style.display = 'inline-block';
-        loadBtn.disabled = false;
-        loadBtn.textContent = 'Ver comentários';
-        closeBtn.style.display = 'none';
-    }
-
-    function toggleComments(value) {
-        const fields = document.getElementById('commentFields');
-        if (value === "1") {
-            fields.style.display = 'block';
-        } else {
-            fields.style.display = 'none';
-            document.getElementById('carSpaces').value = '';
-            document.getElementById('numSpaces').value = '';
-            document.getElementById('plate').value = '';
-            document.getElementById('brand').value = '';
-            document.getElementById('model').value = '';
+        // Função para fechar comentários
+        function closeComments(postId) {
+            const comentariosDiv = document.getElementById(`comentarios-${postId}`);
+            const loadBtn = document.querySelector(`[data-post-id="${postId}"].load-comments-btn`);
+            const closeBtn = document.querySelector(`[data-post-id="${postId}"].close-comments-btn`);
+            
+            comentariosDiv.classList.add('hidden');
+            loadBtn.style.display = 'inline-block';
+            loadBtn.disabled = false;
+            loadBtn.innerHTML = '<i class="fas fa-comments"></i> Ver comentários';
+            closeBtn.style.display = 'none';
         }
-    }
-</script>
-
+    </script>
 </body>
 </html>
 

@@ -1,55 +1,45 @@
-<li>
-    <p><%= texto %></p>
+    <p class="post-text"><%= texto %></p>
 
     <% if (createdAt) { %>
-        <small><%= new Date(createdAt).toLocaleString('pt-BR', { timeZone: "America/Sao_Paulo" }) %></small>
+        <small class="post-date"><%= new Date(createdAt).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }) %></small>
     <% } %>
 
-    <!-- Botões para carregar e fechar comentários -->
-    <div style="margin: 10px 0;">
+    <div class="post-actions">
+        <button 
+            class="like-btn <%= userCurtiu ? 'liked' : '' %>"
+            data-post-id="<%= _id %>"
+            data-curtiu="<%= userCurtiu %>">
+            <i class="<%= userCurtiu ? 'fas' : 'far' %> fa-heart"></i>
+            <span class="like-count"><%= totalLikes %></span>
+        </button>
+
         <button 
             class="load-comments-btn" 
             data-post-id="<%= _id %>" 
-            onclick="loadComments('<%= _id %>')">
+            onclick="loadComments("<%= _id %>")">
+            <i class="fas fa-comments"></i>
             Ver comentários
         </button>
         
         <button 
             class="close-comments-btn" 
             data-post-id="<%= _id %>" 
-            onclick="closeComments('<%= _id %>')"
-            style="display: none;">
+            onclick="closeComments("<%= _id %>")">
+            <i class="fas fa-times-circle"></i>
             Fechar comentários
         </button>
     </div>
 
-    <!-- Lista de comentários (inicialmente oculta) -->
     <ul class="comentarios hidden" id="comentarios-<%= _id %>">
         <!-- Os comentários serão carregados dinamicamente -->
     </ul>
 
-    <!-- Formulário para novo comentário -->
     <form class="form-comentario" data-post-id="<%= _id %>">
         <input type="text" name="texto" placeholder="Comente algo..." required>
         <label for="anonimo-<%= _id %>">
             <input type="checkbox" name="anonimo" id="anonimo-<%= _id %>">
             Comentar como anônimo
         </label>
-        <button type="submit">Enviar Comentário</button>
+        <button type="submit"><i class="fas fa-paper-plane"></i> Enviar Comentário</button>
     </form>
-
-    <button 
-        class="like-btn"
-        data-post-id="<%= _id %>"
-        data-curtiu="<%= userCurtiu %>">
-        <% if (userCurtiu) { %>
-            <i class="fas fa-heart" style="color: red;"></i>
-        <% } else { %>
-            <i class="far fa-heart"></i>
-        <% } %>
-        <span class="like-count"><%= totalLikes %></span>
-    </button>
-
-    <hr>
-</li>
 
