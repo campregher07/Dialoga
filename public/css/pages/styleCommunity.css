@@ -106,3 +106,122 @@
     border-radius: 4px;
     cursor: pointer;
 }
+
+/* Área de postagem */
+form {
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 30px auto 10px;
+    max-width: 90%;
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+form textarea {
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+    padding: 15px;
+    font-size: 16px;
+    resize: none;
+    background-color: #f1f5f9;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+form button[type="submit"] {
+    float: right;
+    background-color: #38b6ff;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+form button[type="submit"]:hover {
+    background-color: #219bd5;
+}
+
+/* Título */
+section h2 {
+    text-align: center;
+    color: #004a7c;
+    margin-top: 30px;
+    font-size: 22px;
+}
+
+/* Lista de posts */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 95%;
+}
+
+/* Card de post */
+ul > li {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px auto;
+    box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.07);
+}
+
+ul > li p {
+    font-size: 15px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+ul > li small {
+    display: block;
+    color: #888;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+/* Botão de curtida */
+.like-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.like-btn i {
+    font-size: 18px;
+}
+
+/* Tabs (opcional) */
+.tab-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.tab-container button {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: none;
+    background-color: #e2e8f0;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    transition: background-color 0.2s;
+}
+
+.tab-container .active {
+    background-color: #38b6ff;
+    color: white;
+}
+
+.tab-container button:hover {
+    background-color: #cbd5e1;
+}

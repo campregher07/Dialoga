@@ -23,14 +23,32 @@
         <div class="form-card">
             <h2>Como está se sentindo hoje?</h2>
             <div class="emotion-selection-grid">
-                <div class="emotion-circle mood-yellow" data-humor="yellow" title="Feliz"></div>
-                <div class="emotion-circle mood-green" data-humor="green" title="Contente"></div>
-                <div class="emotion-circle mood-default" data-humor="default" title="Neutro"></div>
-                <div class="emotion-circle mood-purple" data-humor="purple" title="Ansioso"></div>
-                <div class="emotion-circle mood-red" data-humor="red" title="Irritado"></div>
-                <div class="emotion-circle mood-blue" data-humor="blue" title="Triste"></div>
+                <div class="emotion-circle mood-yellow" data-humor="yellow" title="Feliz">
+                    <i class="fas fa-smile"></i>
+                    <span>Feliz</span>
+                </div>
+                <div class="emotion-circle mood-green" data-humor="green" title="Contente">
+                    <i class="fas fa-grin"></i>
+                    <span>Contente</span>
+                </div>
+                <div class="emotion-circle mood-default" data-humor="default" title="Neutro">
+                    <i class="fas fa-meh"></i>
+                    <span>Neutro</span>
+                </div>
+                <div class="emotion-circle mood-blue" data-humor="blue" title="Triste">
+                    <i class="fas fa-frown"></i>
+                    <span>Triste</span>
+                </div>
+                <div class="emotion-circle mood-purple" data-humor="purple" title="Ansioso">
+                    <i class="fas fa-dizzy"></i>
+                    <span>Ansioso</span>
+                </div>
+                <div class="emotion-circle mood-red" data-humor="red" title="Raivoso">
+                    <i class="fas fa-angry"></i>
+                    <span>Raivoso</span>
+                </div>
             </div>
-
+            
             <h2 class="section-title">Desabafe aqui</h2>
             <form action="/registrarDiario" method="POST" id="diaryForm">
                 <input type="hidden" name="humor" id="selectedHumor">

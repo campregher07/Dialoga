@@ -50,11 +50,13 @@ const diaryRoutes = require("./Routes/diaryRoutes");
 const reportRoutes = require("./Routes/reportRoutes");
 const homeRoutes = require('./Routes/homeRoutes');
 const communityRoutes = require('./Routes/communityRoutes');
+const WorkingRoutes = require('./Routes/workingRoutes');
 
 app.use("/", authRoutes);
 app.use("/", diaryRoutes);
 app.use("/", reportRoutes);
 app.use('/', homeRoutes);
+app.use('/', WorkingRoutes);
 app.use('/', communityRoutes);
 
 const PORT = process.env.PORT; 

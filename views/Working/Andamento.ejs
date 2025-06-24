@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Em breve | Dialoga</title>
+    <link rel="stylesheet" href="css/styleGlobal.css">
+    <link rel="stylesheet" href="css/styleComponents.css">
+    <link rel="stylesheet" href="css/pages/styleHome.css"> <!-- Reaproveita o estilo da home -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="home-page">
+    <%- include('../partials/header') %>
+
+    <div class="container home-content">
+        <div class="welcome-section">
+            <div class="welcome-card">
+                <h1 class="welcome-title">Página em andamento 🚧</h1>
+                <p class="welcome-subtitle">Estamos trabalhando para trazer essa funcionalidade em breve.</p>
+                <div class="motivational-quote">
+                    <i class="fas fa-tools quote-icon"></i>
+                    <p class="quote-text">Obrigado por sua paciência. Em breve, esta página estará completa!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-access-section">
+            <h2 class="section-title">Enquanto isso...</h2>
+            <div class="quick-access-grid">
+                <a href="/home" class="quick-access-card community-card">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Voltar a Home</h3>
+                    <p>Volte para a página inicial do Dialoga</p>
+                </a>
+                <a href="/LerDiario" class="quick-access-card diary-card">
+                    <div class="card-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Meu Diário</h3>
+                    <p>Registre seus pensamentos e sentimentos</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>

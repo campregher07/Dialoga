@@ -24,7 +24,7 @@ exports.registrar = async (req, res) => {
         });
 
         console.log("Registro do diário salvo com sucesso no MongoDB Atlas!");
-        res.redirect("/DiarioEmocional"); 
+        res.redirect("/LerDiario"); 
 
     } catch (err) {
         console.error("Erro ao registrar diário no MongoDB:", err);
