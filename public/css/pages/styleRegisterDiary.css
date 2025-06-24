@@ -79,6 +79,79 @@
     justify-items: center;
     margin-bottom: 25px;
 }
+.mood-section {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow-medium);
+}
+
+/* .emotion-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 20px;
+    justify-items: center;
+} */
+.emotion-circle {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.emotion-circle i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    font-size: 2rem;
+    margin-bottom: 0;
+    width: auto;
+    height: auto;
+    z-index: 2;
+}
+
+.emotion-circle span {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+    z-index: 2;
+}
+.emotion-circle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    opacity: 0.8;
+    border-radius: inherit;
+    z-index: 1;
+}
+
+.emotion-circle:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border-color: var(--primary-blue);
+}
+
+.emotion-circle.selected {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(31, 100, 148, 0.3);
+}
 .centered-textarea{
  display: block;
     margin: 0 auto;

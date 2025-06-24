@@ -122,6 +122,9 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
+/* Seleção de Humor */
+
+
 
 .diary-card.mood-yellow .mood-circle { background-color: var(--mood-yellow); }
 .diary-card.mood-green .mood-circle { background-color: var(--mood-green); }
