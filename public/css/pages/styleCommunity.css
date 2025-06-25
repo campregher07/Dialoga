@@ -101,6 +101,11 @@
     color: var(--medium-grey);
     font-style: italic;
 }
+.comentarios {
+    list-style-type: none; /* remove o bullet */
+    padding-left: 0;       /* remove o recuo lateral padrão */
+    margin: 0;
+}
 
 .form-footer {
     display: flex;
