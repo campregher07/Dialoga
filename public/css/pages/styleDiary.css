@@ -31,7 +31,7 @@
 .filter-dropdown {
     position: relative;
     min-width: 120px;
-    flex-grow: 1; /* Ocupa espaço disponível */
+    flex-grow: 1; /* Permite que o dropdown ocupe o espaço restante */
 }
 
 .filter-dropdown select {

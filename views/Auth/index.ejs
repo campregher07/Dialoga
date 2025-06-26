@@ -7,7 +7,8 @@
   <link rel="stylesheet" href="/css/styleGlobal.css">
   <link rel="stylesheet" href="/css/styleComponents.css">
   <link rel="stylesheet" href="/css/pages/styleAuth.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="auth-background">
@@ -18,30 +19,43 @@
     
     <div class="auth-card">
       <div class="tabs">
-        <a href="/" class="active">Entrar</a>
-        <a href="/cadastre-se">Criar conta</a>
+        <a href="/" class="tab-link active" data-tab="login">Entrar</a>
+        <a href="/cadastre-se" class="tab-link" data-tab="cadastro">Criar conta</a>
+        <div class="indicator"></div>
       </div>
+
+      <h1 class="auth-title">Bem-vindo de volta!</h1>
+      <p class="auth-subtitle">Entre na sua conta para continuar</p>
+
+      <% if (typeof erroMessage !== 'undefined' && erroMessage) { %>
+      <div class="message message-error">
+        <i class="fas fa-exclamation-circle"></i>
+        <%= erroMessage %>
+      </div>
+      <% } %>
 
       <form class="auth-form" method="post" action="/login">
         <div class="form-group">
           <label class="form-label">Email</label>
           <div class="input-icon-container">
-            <input type="text" class="form-input" name="email" required>
-            <span class="input-icon">@</span>
+            <input type="email" class="form-input" name="email" placeholder="Digite seu email" required>
+            <i class="input-icon fas fa-envelope"></i>
           </div>
         </div>
         
         <div class="form-group">
           <label class="form-label">Senha</label>
           <div class="input-icon-container">
-            <input type="password" class="form-input" name="senha" required>
-            <span class="input-icon">🔒</span>
+            <input type="password" class="form-input" name="senha" placeholder="Digite sua senha" required>
+            <i class="input-icon fas fa-lock"></i>
           </div>
         </div>
 
         <a href="/recuperarSenha" class="forgot-password">Esqueceu a senha?</a>
 
-        <button type="submit" class="submit-button">Entrar</button>
+        <button type="submit" class="submit-button">
+          Entrar
+        </button>
       </form>
 
       <div class="auth-footer">
@@ -51,16 +65,50 @@
     </div>
   </div>
 
-<% if (typeof erroMessage !== 'undefined' && erroMessage) { %>
-<script>
-    Swal.fire({
-        icon: 'error',
-        title: 'Erro ao fazer login',
-        text: '<%= erroMessage %>',
-        confirmButtonColor: '#d33'
+  <script>
+    // Adiciona efeito de loading no botão
+    document.querySelector(".auth-form").addEventListener("submit", function(e) {
+      const button = this.querySelector(".submit-button");
+      button.classList.add("loading");
+      button.disabled = true;
     });
-</script>
-<% } %>
+
+    // Animação das abas
+    document.addEventListener("DOMContentLoaded", function() {
+      const tabs = document.querySelector(".tabs");
+      const tabLinks = document.querySelectorAll(".tab-link");
+      const indicator = document.querySelector(".indicator");
+
+      function updateIndicator(activeTab) {
+        if (activeTab) {
+          indicator.style.left = activeTab.offsetLeft + "px";
+          indicator.style.width = activeTab.offsetWidth + "px";
+        }
+      }
+
+      // Initial position
+      const activeTab = document.querySelector(".tab-link.active");
+      updateIndicator(activeTab);
+
+      tabLinks.forEach(link => {
+        link.addEventListener("click", function(e) {
+          // Prevent default navigation for demonstration of animation
+          // In a real app, you might want to handle navigation via JS or let it proceed
+          // e.preventDefault(); 
+
+          document.querySelector(".tab-link.active").classList.remove("active");
+          this.classList.add("active");
+          updateIndicator(this);
+        });
+      });
+
+      // Update indicator on window resize
+      window.addEventListener("resize", function() {
+        const activeTab = document.querySelector(".tab-link.active");
+        updateIndicator(activeTab);
+      });
+    });
+  </script>
 </body>
 </html>
 

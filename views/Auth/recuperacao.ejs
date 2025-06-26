@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recuperar Senha</title>
+  <title>Dialoga - Recuperar Senha</title>
   <link rel="stylesheet" href="/css/styleGlobal.css">
   <link rel="stylesheet" href="/css/styleComponents.css">
   <link rel="stylesheet" href="/css/pages/styleAuth.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="auth-background">
@@ -18,47 +19,140 @@
 
     <div class="auth-card">
       <div class="tabs">
-        <a href="/" class="active">Entrar</a>
+        <a href="/">← Voltar ao login</a>
       </div>
 
-      <h1 class="form-title">Esqueci minha senha</h1>
-      <p class="form-subtitle">Digite seu e-mail para redefinir a senha:</p>
+      <h1 class="auth-title">Recuperar senha</h1>
+      <p class="auth-subtitle">Digite seu email e uma nova senha para redefinir o acesso à sua conta</p>
+
+      <% if (typeof erroMessage !== 'undefined' && erroMessage) { %>
+      <div class="message message-error">
+        <i class="fas fa-exclamation-circle"></i>
+        <%= erroMessage %>
+      </div>
+      <% } %>
+
+      <% if (typeof successMessage !== 'undefined' && successMessage) { %>
+      <div class="message message-success">
+        <i class="fas fa-check-circle"></i>
+        <%= successMessage %>
+      </div>
+      <% } %>
 
       <form class="auth-form" method="post" action="/recuperar">
         <div class="form-group">
           <label class="form-label">Email</label>
           <div class="input-icon-container">
-            <input type="email" name="email" class="form-input" placeholder="Digite seu e-mail" required>
-            <span class="input-icon">@</span>
+            <input type="email" name="email" class="form-input" placeholder="Digite seu email cadastrado" required>
+            <i class="input-icon fas fa-envelope"></i>
           </div>
         </div>
 
         <div class="form-group">
           <label class="form-label">Nova Senha</label>
           <div class="input-icon-container">
-            <input type="password" name="senha" class="form-input" placeholder="Nova senha" minlength="6" required>
-            <span class="input-icon">🔒</span>
+            <input type="password" name="senha" class="form-input" placeholder="Digite sua nova senha" minlength="6" required>
+            <i class="input-icon fas fa-lock"></i>
+          </div>
+          <small style="color: var(--medium-grey); font-size: 12px; margin-top: 5px; display: block;">
+            Mínimo de 6 caracteres
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Confirmar Nova Senha</label>
+          <div class="input-icon-container">
+            <input type="password" name="confirmarSenha" class="form-input" placeholder="Confirme sua nova senha" minlength="6" required>
+            <i class="input-icon fas fa-lock"></i>
           </div>
         </div>
 
-        <button type="submit" class="submit-button">Recuperar</button>
+        <button type="submit" class="submit-button">
+          Redefinir senha
+        </button>
       </form>
 
-      <p style="font-size: 11px; margin-top: 20px;">
-        Lembre-se de usar uma senha segura e que você consiga lembrar.
-      </p>
+      <div class="auth-footer">
+        <div style="background: rgba(31, 100, 148, 0.1); padding: 15px; border-radius: 8px; margin-top: 20px;">
+          <i class="fas fa-info-circle" style="color: var(--primary-blue); margin-right: 8px;"></i>
+          <strong>Dica de segurança:</strong> Use uma senha forte com pelo menos 6 caracteres, incluindo letras, números e símbolos.
+        </div>
+        
+        <div style="margin-top: 15px; text-align: center;">
+          Lembrou da sua senha? <a href="/">Fazer login</a>
+        </div>
+      </div>
     </div>
   </div>
 
-  <% if (typeof erroMessage !== 'undefined' && erroMessage) { %>
   <script>
-      Swal.fire({
+    // Adiciona efeito de loading no botão
+    document.querySelector('.auth-form').addEventListener('submit', function(e) {
+      const senha = document.querySelector('input[name="senha"]').value;
+      const confirmarSenha = document.querySelector('input[name="confirmarSenha"]').value;
+      
+      if (senha !== confirmarSenha) {
+        e.preventDefault();
+        Swal.fire({
           icon: 'error',
-          title: 'Erro ao recuperar senha',
-          text: '<%= erroMessage %>',
-          confirmButtonColor: '#d33'
-      });
+          title: 'Senhas não coincidem',
+          text: 'Por favor, verifique se as senhas digitadas são iguais.',
+          confirmButtonColor: '#1f6494'
+        });
+        return;
+      }
+      
+      const button = this.querySelector('.submit-button');
+      button.classList.add('loading');
+      button.disabled = true;
+    });
+
+    // Validação de senhas em tempo real
+    const senhaInput = document.querySelector('input[name="senha"]');
+    const confirmarSenhaInput = document.querySelector('input[name="confirmarSenha"]');
+    
+    function validarSenhas() {
+      const senha = senhaInput.value;
+      const confirmarSenha = confirmarSenhaInput.value;
+      
+      // Validar senha principal
+      if (senha.length > 0) {
+        if (senha.length >= 6) {
+          senhaInput.style.borderColor = '#4CAF50';
+        } else {
+          senhaInput.style.borderColor = '#f44336';
+        }
+      } else {
+        senhaInput.style.borderColor = '';
+      }
+      
+      // Validar confirmação de senha
+      if (confirmarSenha.length > 0) {
+        if (senha === confirmarSenha && senha.length >= 6) {
+          confirmarSenhaInput.style.borderColor = '#4CAF50';
+        } else {
+          confirmarSenhaInput.style.borderColor = '#f44336';
+        }
+      } else {
+        confirmarSenhaInput.style.borderColor = '';
+      }
+    }
+    
+    senhaInput.addEventListener('input', validarSenhas);
+    confirmarSenhaInput.addEventListener('input', validarSenhas);
+
+    // Animação da aba de voltar
+    document.querySelector('.tabs a').addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Animação de saída
+      document.querySelector('.auth-card').style.animation = 'fadeInUp 0.3s ease-out reverse';
+      
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 300);
+    });
   </script>
-  <% } %>
 </body>
 </html>
+
