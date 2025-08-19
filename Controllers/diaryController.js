@@ -6,10 +6,7 @@ exports.registrar = async (req, res) => {
     const userId = req.session.userId; 
 
 
-    if (!texto || !humor) {
-        console.error("Texto e humor são obrigatórios.");
-        return res.redirect("/DiarioEmocional"); 
-    }
+
 
     if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
         console.error("ID de usuário inválido na sessão.");
@@ -24,7 +21,7 @@ exports.registrar = async (req, res) => {
         });
 
         console.log("Registro do diário salvo com sucesso no MongoDB Atlas!");
-        res.redirect("/LerDiario"); 
+        // res.redirect("/LerDiario"); 
 
     } catch (err) {
         console.error("Erro ao registrar diário no MongoDB:", err);

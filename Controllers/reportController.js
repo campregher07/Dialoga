@@ -5,14 +5,9 @@ exports.Denunciar = async (req, res) => {
     const { anonimo, tipoDenuncia, ocorrido  } = req.body;
     const { username } = req.session;
 
-    if (!ocorrido || ocorrido.trim() === '') {
-        console.log("Preencha todos os campos");
-        return res.render("Reports/denuncias", { 
-            erroMessage: "Por favor, preencha todos os campos.", 
-            username, 
-            currentPage: "report" 
-        });
-    }
+    // if (!ocorrido || ocorrido.trim() === '') {
+    //     console.log("Preencha todos os campos");
+    // }
 
     const newReport = {
         tipoDenuncia,
@@ -32,11 +27,11 @@ exports.Denunciar = async (req, res) => {
         await Report.create(newReport);
 
         console.log("Registro do diário salvo com sucesso no MongoDB Atlas!");
-        res.redirect("/Denuncias"); 
+        // res.redirect("/Denuncias"); 
 
     } catch (err) {
         console.error("Erro ao registrar denúncia no MongoDB:", err);
-        res.status(500).render("Reposts/denuncias", { 
+        res.status(500).render("Reports/denuncias", { 
             username, 
             currentPage: "report", 
             erroMessage: "Erro interno ao salvar denúncia." 

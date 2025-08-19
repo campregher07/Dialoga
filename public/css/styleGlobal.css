@@ -48,6 +48,8 @@ body {
 
 a {
     text-decoration: none;
+    justify-content: center;
+    display: flex;
 }
 
 .span-logo{

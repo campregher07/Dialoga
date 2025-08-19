@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novo Registro - Diário</title>
+    <title>Novo Registro | Diário</title>
     <link rel="stylesheet" href="css/styleGlobal.css">
     <link rel="stylesheet" href="css/styleComponents.css">
     <link rel="stylesheet" href="/css/pages/styleRegisterDiary.css">
@@ -95,19 +95,33 @@
                 });
             });
 
-        document.getElementById('diaryForm').addEventListener('submit', function(e) {
-            const texto = document.getElementById('texto').value.trim();
+            document.getElementById('diaryForm').addEventListener('submit', function(e) {
+                const texto = document.getElementById('texto').value.trim();
+                const humor = document.getElementById('selectedHumor').value;
 
-            if (!texto) {
-            e.preventDefault(); 
-            Swal.fire({
-                icon: 'warning',
-                title: 'Campos obrigatórios!',
-                text: 'Por favor, preencha todos os campos.',
-                confirmButtonColor: '#1F6494'
+                if (!texto || !humor) {
+                    e.preventDefault(); 
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Campos obrigatórios!',
+                        text: 'Por favor, preencha todos os campos.',
+                        confirmButtonColor: '#1F6494'
+                    });
+                }else{
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Diário feito com sucesso',
+                        text: 'Seu diário já está disponível na aba "Diário emocional".',
+                        confirmButtonColor: '#00FF00',
+                        confirmButtonText: 'Ver meu diário' // opcional: muda o texto do botão
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redireciona para a página desejada
+                            window.location.href = "/LerDiario";
+                        }
+                    });
+                }
             });
-            }
-        });
         });
     </script>
 </body>

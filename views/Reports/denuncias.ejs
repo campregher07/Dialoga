@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Denúncias</title>
+    <title>Denúncias | Dialoga</title>
     <link rel="stylesheet" href="css/styleGlobal.css">
     <link rel="stylesheet" href="css/styleComponents.css">
     <link rel="stylesheet" href="css/pages/styleDenuncia.css">
@@ -20,7 +20,7 @@
             <h1>Denúncias</h1>
             <p>Use este canal para reportar situações de risco, abuso ou violência. Todas as denúncias são tratadas com sigilo e encaminhadas para profissionais qualificados.</p>
 
-            <form action="/reportController" method="post">
+            <form action="/reportController" method="post" id="reportForm">
                 <div class="form-card">
                     <h2>Nova Denúncia</h2>
                     <div class="form-group">
@@ -102,9 +102,39 @@ document.querySelector('form').addEventListener('submit', function(e) {
     }
 });
 
+    document.getElementById('reportForm').addEventListener('submit', function(e) {
+        const tipoDenuncia = document.getElementById('tipoDenuncia')
+        const texto = document.getElementById('ocorrido').value.trim()
+
+        if (!tipoDenuncia || !texto){
+        e.preventDefault();
+        Swal.fire({
+            icon: 'warning',
+            title: 'Campos obrigatórios!',
+            text: 'Erro ao enviar denuncia',
+            confirmButtonColor: '#1F6494'
+        });
+        }else {
+        Swal.fire({
+            icon: 'success',
+            title: 'Denúncia feito com sucesso',
+            text: 'Sua dénuncia já foi feita. Parabéns pela coragem!.',
+            confirmButtonColor: '#00FF00',
+            confirmButtonText: 'Voltar a home'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/LerDiario";
+            }
+        });
+        }
+ });
+
+
+
+
     </script>
 
-<% if (typeof erroMessage !== 'undefined' && erroMessage) { %>
+<!-- <% if (typeof erroMessage !== 'undefined' && erroMessage) { %>
 <script>
     Swal.fire({
         icon: 'warning',
@@ -113,6 +143,6 @@ document.querySelector('form').addEventListener('submit', function(e) {
         confirmButtonColor: '#1F6494'
     });
 </script>
-<% } %>
+<% } %> -->
 </body>
 </html>
