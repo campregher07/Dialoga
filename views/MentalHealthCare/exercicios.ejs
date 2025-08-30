@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Exercícios de Saúde Mental | Dialoga</title>
+    <link rel="stylesheet" href="css/styleGlobal.css">
+    <link rel="stylesheet" href="css/styleComponents.css">
+    <link rel="stylesheet" href="css/pages/styleExercicios.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="exercicios-page"> 
+    <%- include('../partials/header') %> 
+    
+    <div class="container exercicios-content">
+        <!-- Título Principal -->
+        <div class="page-header">
+            <h1 class="page-title">Exercícios de Saúde Mental</h1>
+            <p class="page-subtitle">Pratique meditação e exercícios de respiração para melhorar seu bem-estar</p>
+        </div>
+
+        <!-- Seção de Meditação Guiada -->
+        <div class="section meditation-section">
+            <h2 class="section-title">
+                <i class="fas fa-leaf section-icon"></i>
+                Meditação Guiada
+            </h2>
+            <div class="exercises-grid">
+                <div class="exercise-card meditation-card">
+                    <div class="card-header">
+                        <div class="card-icon relaxation-icon">
+                            <i class="fas fa-spa"></i>
+                        </div>
+                        <h3 class="card-title">Relaxamento Muscular</h3>
+                        <span class="duration">10 min</span>
+                    </div>
+                    <p class="card-description">
+                        Técnica de relaxamento progressivo que ajuda a liberar tensões musculares e reduzir o estresse físico e mental.
+                    </p>
+                    <button class="start-button" onclick="startMeditation('relaxamento')">
+                        <i class="fas fa-play"></i>
+                        Iniciar Meditação
+                    </button>
+                </div>
+
+                <div class="exercise-card meditation-card">
+                    <div class="card-header">
+                        <div class="card-icon focus-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3 class="card-title">Foco Mental</h3>
+                        <span class="duration">8 min</span>
+                    </div>
+                    <p class="card-description">
+                        Desenvolva sua capacidade de concentração e clareza mental através de técnicas de mindfulness e visualização.
+                    </p>
+                    <button class="start-button" onclick="startMeditation('foco')">
+                        <i class="fas fa-play"></i>
+                        Iniciar Meditação
+                    </button>
+                </div>
+
+                <div class="exercise-card meditation-card">
+                    <div class="card-header">
+                        <div class="card-icon gratitude-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3 class="card-title">Gratidão</h3>
+                        <span class="duration">7 min</span>
+                    </div>
+                    <p class="card-description">
+                        Cultive sentimentos de gratidão e positividade, fortalecendo sua conexão com o que há de bom em sua vida.
+                    </p>
+                    <button class="start-button" onclick="startMeditation('gratidao')">
+                        <i class="fas fa-play"></i>
+                        Iniciar Meditação
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção de Exercícios de Respiração -->
+        <div class="section breathing-section">
+            <h2 class="section-title">
+                <i class="fas fa-wind section-icon"></i>
+                Exercícios de Respiração
+            </h2>
+            <div class="exercises-grid">
+                <div class="exercise-card breathing-card">
+                    <div class="card-header">
+                        <div class="card-icon diaphragmatic-icon">
+                            <i class="fas fa-lungs"></i>
+                        </div>
+                        <h3 class="card-title">Respiração Diafragmática</h3>
+                        <span class="duration">5 min</span>
+                    </div>
+                    <p class="card-description">
+                        Técnica fundamental que utiliza o diafragma para uma respiração mais profunda e eficiente, reduzindo ansiedade e estresse.
+                    </p>
+                    <div class="breathing-gif">
+                        <img src="/img/3CXPGydh55FL.gif" alt="Respiração Diafragmática" class="breathing-animation">
+                    </div>
+                    <button class="start-button" onclick="startBreathing('diafragmatica')">
+                        <i class="fas fa-play"></i>
+                        Iniciar Exercício
+                    </button>
+                </div>
+
+                <div class="exercise-card breathing-card">
+                    <div class="card-header">
+                        <div class="card-icon technique-478-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3 class="card-title">Respiração 4-7-8</h3>
+                        <span class="duration">3 min</span>
+                    </div>
+                    <p class="card-description">
+                        Técnica poderosa para relaxamento: inspire por 4 segundos, segure por 7 segundos, expire por 8 segundos. Ideal para dormir.
+                    </p>
+                    <div class="breathing-gif">
+                        <img src="/img/7DOmJxgcFdbq.gif" alt="Respiração 4-7-8" class="breathing-animation">
+                    </div>
+                    <button class="start-button" onclick="startBreathing('478')">
+                        <i class="fas fa-play"></i>
+                        Iniciar Exercício
+                    </button>
+                </div>
+
+                <div class="exercise-card breathing-card">
+                    <div class="card-header">
+                        <div class="card-icon box-icon">
+                            <i class="fas fa-square"></i>
+                        </div>
+                        <h3 class="card-title">Respiração Box</h3>
+                        <span class="duration">4 min</span>
+                    </div>
+                    <p class="card-description">
+                        Técnica usada por militares para controle do estresse: inspire, segure, expire e segure, cada fase por 4 segundos.
+                    </p>
+                    <div class="breathing-gif">
+                        <img src="/img/YORVcqzZtXuL.gif" alt="Respiração Box" class="breathing-animation">
+                    </div>
+                    <button class="start-button" onclick="startBreathing('box')">
+                        <i class="fas fa-play"></i>
+                        Iniciar Exercício
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção de Favoritos -->
+        <div class="section favorites-section">
+            <h2 class="section-title">
+                <i class="fas fa-star section-icon"></i>
+                Meus Favoritos
+            </h2>
+            <div class="favorites-grid" id="favoritesGrid">
+                <div class="empty-favorites">
+                    <i class="fas fa-heart-broken"></i>
+                    <p>Você ainda não tem exercícios favoritos. Clique no coração dos exercícios para adicioná-los aqui!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção de Histórico -->
+        <div class="section history-section">
+            <h2 class="section-title">
+                <i class="fas fa-history section-icon"></i>
+                Histórico de Atividades
+            </h2>
+            <div class="history-list" id="historyList">
+                <div class="empty-history">
+                    <i class="fas fa-clock"></i>
+                    <p>Seu histórico de atividades aparecerá aqui conforme você pratica os exercícios.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>
+
+    <!-- Modal de Meditação -->
+    <div id="meditationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Meditação</h3>
+                <span class="close" onclick="closeMeditationModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="audio-player">
+                    <audio id="meditationAudio" controls>
+                        <source src="" type="audio/wav">
+                        Seu navegador não suporta o elemento de áudio.
+                    </audio>
+                </div>
+                <div class="meditation-instructions">
+                    <p id="meditationInstructions">Encontre uma posição confortável e siga as instruções do áudio.</p>
+                </div>
+                <div class="favorite-button-container">
+                    <button class="favorite-button" onclick="toggleFavorite('meditation', currentMeditationType)">
+                        <i class="far fa-heart"></i>
+                        Adicionar aos Favoritos
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Respiração -->
+    <div id="breathingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="breathingModalTitle">Exercício de Respiração</h3>
+                <span class="close" onclick="closeBreathingModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="breathing-timer">
+                    <div class="timer-circle">
+                        <div class="timer-text">
+                            <span id="timerPhase">Prepare-se</span>
+                            <span id="timerCount">3</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="breathing-controls">
+                    <button id="startBreathingBtn" class="control-button" onclick="startBreathingTimer()">
+                        <i class="fas fa-play"></i>
+                        Iniciar
+                    </button>
+                    <button id="pauseBreathingBtn" class="control-button" onclick="pauseBreathingTimer()" style="display: none;">
+                        <i class="fas fa-pause"></i>
+                        Pausar
+                    </button>
+                    <button id="stopBreathingBtn" class="control-button" onclick="stopBreathingTimer()">
+                        <i class="fas fa-stop"></i>
+                        Parar
+                    </button>
+                </div>
+                <div class="breathing-instructions">
+                    <p id="breathingInstructions">Clique em iniciar para começar o exercício de respiração.</p>
+                </div>
+                <div class="favorite-button-container">
+                    <button class="favorite-button" onclick="toggleFavorite('breathing', currentBreathingType)">
+                        <i class="far fa-heart"></i>
+                        Adicionar aos Favoritos
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/exercicios.js"></script>
+</body>
+</html>
+

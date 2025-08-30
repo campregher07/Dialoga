@@ -28,7 +28,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET , // Use variável de ambiente para o segredo!
     resave: false,
     saveUninitialized: false, // Não salvar sessões não inicializadas
-    store: MongoStore.create({ 
+    store: process.env.NODE_ENV === 'development' ? undefined : MongoStore.create({ 
         mongoUrl: dbURI, 
         collectionName: "sessions" // Nome da coleção para guardar sessões
     }),
@@ -51,6 +51,7 @@ const reportRoutes = require("./Routes/reportRoutes");
 const homeRoutes = require('./Routes/homeRoutes');
 const communityRoutes = require('./Routes/communityRoutes');
 const WorkingRoutes = require('./Routes/workingRoutes');
+const mentalCareRoutes = require('./Routes/MentalCare');
 
 app.use("/", authRoutes);
 app.use("/", diaryRoutes);
@@ -58,10 +59,11 @@ app.use("/", reportRoutes);
 app.use('/', homeRoutes);
 app.use('/', WorkingRoutes);
 app.use('/', communityRoutes);
+app.use('/', mentalCareRoutes);
 
 const PORT = process.env.PORT; 
 app.listen(PORT, '0.0.0.0', () => { 
     console.log(`Servidor rodando na url http://localhost:${PORT}`);
 });
 
-module.exports = app;
+module.exports = app;   
