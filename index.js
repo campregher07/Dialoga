@@ -61,6 +61,7 @@ app.use('/', WorkingRoutes);
 app.use('/', communityRoutes);
 app.use('/', mentalCareRoutes);
 
+
 const PORT = process.env.PORT; 
 app.listen(PORT, '0.0.0.0', () => { 
     console.log(`Servidor rodando na url http://localhost:${PORT}`);

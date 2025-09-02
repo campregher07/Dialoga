@@ -56,6 +56,7 @@ a {
     color: var(--medium-grey)
 }
 
+
 /* Container base */
 .container {
     max-width: 900px;
@@ -63,6 +64,11 @@ a {
     padding: 0 20px;
     box-sizing: border-box;
 }
+.bpFabWrapper {
+    bottom: 6.5rem !important;
+    right: 2.5rem !important;
+}
+
 
 /* Responsividade base */
 @media (max-width: 768px) {
